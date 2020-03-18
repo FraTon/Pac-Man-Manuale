@@ -2,6 +2,9 @@ package pacman.actors;
 
 import java.awt.Rectangle;
 
+import behav.NuovaCellaVuota;
+import behav.QueryDatabase;
+import behav.RetractPuntino;
 import jade.core.Agent;
 import pacman.PacmanActor;
 import pacman.PacmanGame;
@@ -47,6 +50,23 @@ public class PowerBall extends PacmanActor {
         	eated = true;
             visible = false;
             game.addScore(50);
+            
+            agentGrafica.addBehaviour(new RetractPuntino(
+    				agentGrafica,
+    				"vitamina",
+    				"("+col+",-"+row+")"
+    			));
+            agentGrafica.addBehaviour(new NuovaCellaVuota(
+    				agentGrafica,
+    				"vuota",
+    				"("+col+",-"+row+")"
+    			));
+            agentGrafica.addBehaviour(new QueryDatabase(
+    				agentGrafica,
+    				"crea_database.pl",
+    				"esporta()"
+    			));
+            
             game.startGhostVulnerableMode();
         }
     }

@@ -54,7 +54,7 @@ public class Food extends PacmanActor {
             game.currentFoodCount--;
             game.addScore(10);
             
-            /*agentGrafica.addBehaviour(new RetractPuntino(
+            agentGrafica.addBehaviour(new RetractPuntino(
     				agentGrafica,
     				"puntino",
     				"("+col+",-"+row+")"
@@ -68,7 +68,7 @@ public class Food extends PacmanActor {
     				agentGrafica,
     				"crea_database.pl",
     				"esporta()"
-    			));*/
+    			));
 //            System.out.println("Current food count: " + game.currentFoodCount);
         }
     }
