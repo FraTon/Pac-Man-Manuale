@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 import jade.core.Agent;
 import behav.NuovaCellaVuota;
 import behav.QueryDatabase;
-import behav.RetractPuntino;
+import behav.Retract;
 
 import pacman.PacmanActor;
 import pacman.PacmanGame;
@@ -53,7 +53,7 @@ public class Food extends PacmanActor {
             game.addScore(10);
             
             //aggiunta di un behaviour all'agentGrafica che permette di ritrarre il puntino mangiato
-            agentGrafica.addBehaviour(new RetractPuntino(
+            agentGrafica.addBehaviour(new Retract(
     				agentGrafica,
     				"puntino",
     				"("+col+",-"+row+")"

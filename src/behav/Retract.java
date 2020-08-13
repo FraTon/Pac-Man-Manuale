@@ -5,12 +5,12 @@ import org.jpl7.Query;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 
-public class RetractPuntino extends MyOneShot {
+public class Retract extends MyOneShot {
 
 	private String predName; //stringa contenente il predicato
 	private String argument; //stringa contenente l'argomento del predicato
 
-	public RetractPuntino(Agent schedAgent, String predName, String argument) {
+	public Retract(Agent schedAgent, String predName, String argument) {
 		
 		super(schedAgent); //chiama il costruttore della superclasse
 		//inizializzo delle variabili private

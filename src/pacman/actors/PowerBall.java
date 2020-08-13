@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import behav.NuovaCellaVuota;
 import behav.QueryDatabase;
-import behav.RetractPuntino;
+import behav.Retract;
 import jade.core.Agent;
 import pacman.PacmanActor;
 import pacman.PacmanGame;
@@ -52,7 +52,7 @@ public class PowerBall extends PacmanActor {
             game.addScore(50);
             
             //aggiunta di un behaviour all'agentGrafica che permette di ritrarre la vitamina mangiata
-            agentGrafica.addBehaviour(new RetractPuntino(
+            agentGrafica.addBehaviour(new Retract(
     				agentGrafica,
     				"vitamina",
     				"("+col+",-"+row+")"
