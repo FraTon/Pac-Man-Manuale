@@ -15,7 +15,7 @@ public class ShortestPathFinder {
 
     
     //COPIA LA MAPPA ORIGINALE MAZE IN MAP
-    public ShortestPathFinder(int[][] originalMap) {//34
+    public ShortestPathFinder(int[][] originalMap) {
         map = new int[originalMap.length][originalMap[0].length];
         
         for (int y = 0; y < map.length; y++) 
@@ -40,7 +40,7 @@ public class ShortestPathFinder {
     
     
     
-    //FANTASMA MORTO-> ERCA IL PERCORSO PER TORNARE A CASA (DEVE ANDARE DA SRC A DEST)
+    //FANTASMA MORTO-> CERCA IL PERCORSO PER TORNARE A CASA (DEVE ANDARE DA SRC A DEST)
     public void find(int srcX, int srcY, int destX, int destY) {
     	
         path.clear();

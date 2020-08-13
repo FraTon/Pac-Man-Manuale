@@ -81,7 +81,7 @@ public class Background extends PacmanActor {
     }
     
     @Override
-    public void draw(Graphics2D g) {//68
+    public void draw(Graphics2D g) {
         super.draw(g);
         
         if (showBlockedCellColor) {

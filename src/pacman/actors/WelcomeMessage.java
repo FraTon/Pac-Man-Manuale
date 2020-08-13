@@ -15,7 +15,7 @@ public class WelcomeMessage extends PacmanActor {
 	private String text = ("   Loading...");
     private int textIndex;
 
-    public WelcomeMessage(PacmanGame game,Agent grafica) { //24
+    public WelcomeMessage(PacmanGame game,Agent grafica) {
         super(game,grafica);
     }
 
@@ -24,7 +24,7 @@ public class WelcomeMessage extends PacmanActor {
     	
         yield:
         while (true) {
-            switch (instructionPointer) {//83
+            switch (instructionPointer) {
                 case 0:
                     waitTime = System.currentTimeMillis();
                     instructionPointer = 1;
@@ -59,7 +59,7 @@ public class WelcomeMessage extends PacmanActor {
     }
 
     @Override
-    public void draw(Graphics2D g) {//66
+    public void draw(Graphics2D g) {
         if (!visible) 
             return;
         
@@ -68,7 +68,7 @@ public class WelcomeMessage extends PacmanActor {
 
     
     @Override
-    public void stateChanged() {//72
+    public void stateChanged() {
         visible = false;
         
         if (game.state == State.WELCOME_MESSAGE) {

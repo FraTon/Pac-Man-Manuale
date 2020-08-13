@@ -19,7 +19,7 @@ public class BitmapFontRenderer {
 	public int letterVerticalSpacing = 0;
 	public int letterHorizontalSpacing = 0;
 	
-	//2
+	
 	public BitmapFontRenderer(String fontRes, int cols, int rows) {
 		loadFont(fontRes, cols, rows);
 	}
@@ -49,7 +49,7 @@ public class BitmapFontRenderer {
 			px += letterWidth + letterHorizontalSpacing;
 		}
 	}
-	 //3
+	 
 	private void loadFont(String fileName, Integer cols, Integer rows) {
 		
 		try {
@@ -60,7 +60,7 @@ public class BitmapFontRenderer {
 			throw new RuntimeException(ex);
 		}
 	}
-	//4
+	
 	private void loadFont(BufferedImage image, Integer cols, Integer rows) {
 		
 		int lettersCount = cols * rows;

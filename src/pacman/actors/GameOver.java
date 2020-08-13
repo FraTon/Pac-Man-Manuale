@@ -10,12 +10,12 @@ import pacman.enums.State;
  */
 public class GameOver extends PacmanActor {
 
-	public GameOver(PacmanGame game,Agent grafica) { //36
+	public GameOver(PacmanGame game,Agent grafica) { 
         super(game,grafica);
     }
 
     @Override
-    public void init() {//54
+    public void init() {
         x = 77;
         y = 160;
         loadFrames("/res/gameover.png");

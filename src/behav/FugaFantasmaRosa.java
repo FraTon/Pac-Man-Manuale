@@ -11,34 +11,39 @@ import pacman.actors.Ghost;
 
 public class FugaFantasmaRosa extends Behaviour {
 
-	private int c = 0;
-	private Ghost fantasmaRosa;
+	private int c = 0; //inizializzazione contatore
+	private Ghost fantasmaRosa; //definizione oggetto Ghost
 	
 
 	public FugaFantasmaRosa(Agent schedAgent, Ghost fantasmaRosa) {
 	
-		super(schedAgent);
+		super(schedAgent); //chiama il costruttore della superclasse
+		//inizializzo delle variabili private
 		this.fantasmaRosa = fantasmaRosa;
 	}
 
 	public void action(){
 		
+		//goal: set_iniziale_fuga che permette di settare i parametri iniziali per la modalità fuga
 		String goal = "set_iniziale_fuga";
 		
-		Query q = new Query(goal);
+		Query q = new Query(goal); //creazione di una query per il lancio del goal
 		
+		//lancio del goal e se ha almeno una solzione
 		if (q.hasSolution()) {
 			
-			//System.out.println(goal.toString());
+			//System.out.println(goal.toString()); //stampa di debug
 			
 		}
 	
+		//goal: assert(pacman(x,y)),assert(modalita(rosa,fuga)),fuga(rosa,x,y,NX,NY,Dir)
 		String goal2 = "assert(pacman("+fantasmaRosa.pacman.col+",-"+fantasmaRosa.pacman.row+")),assert(modalita("+fantasmaRosa.color+",fuga)),fuga("+fantasmaRosa.color+","+fantasmaRosa.col+",-"+fantasmaRosa.row+",NX,NY,Dir)";	
 		
-		//System.out.println("Fuga goal sarebbe: "+ goal2);
+		//System.out.println("Fuga goal sarebbe: "+ goal2); //stampa di debug
 			
-		q = new Query(goal2);
+		q = new Query(goal2); //creazione di una query per il lancio del goal
 		
+		//lancio del goal e se ha almeno una solzione
 		if (q.hasSolution()) {
 
 			//Memorizzio tutte la soluzione
@@ -50,7 +55,7 @@ public class FugaFantasmaRosa extends Behaviour {
 			//Prendo il valore di Direction
 			Term nuovaDirezione = sol.get("Dir");
 			
-			//Aggiornamento della grafica per il tunnel
+			//se la nuova mossa è agli estremi del tunnel, allora aggiorno con la posizione x giusta della grafica
 			if (((Integer.parseInt(posY.toString()) == -14) && (Integer.parseInt(posX.toString()) == 31)) || 
 				((Integer.parseInt(posY.toString()) == -14) && (Integer.parseInt(posX.toString()) == 4))) {
 
@@ -58,19 +63,20 @@ public class FugaFantasmaRosa extends Behaviour {
 			
 				fantasmaRosa.x = fantasmaRosa.col * 8 - 4 - 24;
 			
-			} else fantasmaRosa.col = Integer.parseInt(posX.toString());
+			} else fantasmaRosa.col = Integer.parseInt(posX.toString()); //aggiornamento della posizione del fantasma lungo x
 			
-			fantasmaRosa.row = -(Integer.parseInt(posY.toString()));
+			fantasmaRosa.row = -(Integer.parseInt(posY.toString())); //aggiornamento della posizione del fantasma lungo y
 			
-			fantasmaRosa.direction = Integer.parseInt(nuovaDirezione.toString());
+			fantasmaRosa.direction = Integer.parseInt(nuovaDirezione.toString()); //aggiornamento della direzione del fantasma	
 			
-			//System.out.println("Fuga mossa "+fantasmaRosa.color+": " + fantasmaRosa.col + " " + fantasmaRosa.row + " " + fantasmaRosa.direction);
+			//System.out.println("Fuga mossa "+fantasmaRosa.color+": " + fantasmaRosa.col + " " + fantasmaRosa.row + " " + fantasmaRosa.direction); //stampa di debug
 			
-			c++;
+			c++; //incremento del contatore
 
 		}
 	}
 	
+	//metodo che definisce fino a quando l'agente deve eseguire questo behaviour
 	@Override
 	public boolean done() {
 		// TODO Auto-generated method stub

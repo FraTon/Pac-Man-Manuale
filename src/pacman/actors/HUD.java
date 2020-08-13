@@ -12,12 +12,12 @@ import pacman.enums.State;
  */
 public class HUD extends PacmanActor {
 
-	public HUD(PacmanGame game,Agent grafica) {//37
+	public HUD(PacmanGame game,Agent grafica) {
         super(game,grafica);
     }
 
     @Override
-    public void init() {//55
+    public void init() {
         loadFrames("/res/pacman_life.png");    
     }
 
@@ -38,7 +38,7 @@ public class HUD extends PacmanActor {
     
     //rende visibili gli attori se è finita inizializzazione e mesaggio iniziale
     @Override
-    public void stateChanged() {//81
+    public void stateChanged() {
         visible = (game.state != State.INITIALIZING) &&
                   (game.state != State.WELCOME_MESSAGE);
     }

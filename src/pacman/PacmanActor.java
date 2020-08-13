@@ -8,19 +8,19 @@ import pacman.view.Actor;
  */
 public class PacmanActor extends Actor<PacmanGame> {
 
-	public PacmanActor(PacmanGame game,Agent grafica) {  //22
+	public PacmanActor(PacmanGame game,Agent grafica) { 
 		super(game,grafica);  
 	}
 
 	//CONTROLLA LO STATO ATTUALE DEL GIOCO E CHIAMA DI CONSEGUENZA UN'AZIONE
 	@Override
-    public void update() {//59
+    public void update() {
         switch (game.getState()) {
             case INITIALIZING: 
-            	updateInitializing(); //61
+            	updateInitializing();
             	break;
             case WELCOME_MESSAGE: 
-            	updateWelcomeMessage(); //82
+            	updateWelcomeMessage();
             	break;
             case TITLE: 
             	updateTitle(); 
@@ -32,10 +32,10 @@ public class PacmanActor extends Actor<PacmanGame> {
             	updateReady2(); 
             	break;
             case PLAYING:  //qui inizia il gioco
-            	updatePlaying(); //modifiche
+            	updatePlaying(); 
             	break;
             case PACMAN_DIED: 
-            	updatePacmanDied();   // va bene così
+            	updatePacmanDied();
             	break;
             case GHOST_CATCHED: 
             	updateGhostCatched(); 

@@ -47,7 +47,7 @@ public class Pacman extends PacmanActor {
         collider = new Rectangle(0, 0, 8, 8);
     }
   //POSIZIONE INIZIALE DI PACMAN
-    private void reset() {//50
+    private void reset() {
         col = 18;
         row = 23;
         updatePosition();
@@ -56,7 +56,7 @@ public class Pacman extends PacmanActor {
     }
     
   //DATA UNA POSIZIONE SULLA MATRICE NE CALCOLA LA CORRISPETTIVA SULLA GRAFICA
-    public void updatePosition() {//51
+    public void updatePosition() {
         x = col * 8 - 4 - 32 - 4;
         y = (row + 3) * 8 - 4;
     }
@@ -117,7 +117,7 @@ public class Pacman extends PacmanActor {
     	if (!visible) 
             return;
     	
-        //DESIRED DIRECTION è LA DIREZIONE DI PACMANNNNNNNNNNN**********************************
+        //DESIRED DIRECTION è LA DIREZIONE DI PACMAN
         if (Keyboard.keyPressed[KeyEvent.VK_LEFT]) 
             desiredDirection = 2;
         else if (Keyboard.keyPressed[KeyEvent.VK_RIGHT]) 
@@ -161,7 +161,7 @@ public class Pacman extends PacmanActor {
                     if (difX == 0 && difY == 0) {
                         instructionPointer = 0;
                         
-                        //TUNNEL ??
+                        //TUNNEL
                         if (col == 4) {
                             col = 31;
                             x = col * 8 - 4 - 24;
@@ -176,7 +176,7 @@ public class Pacman extends PacmanActor {
             }
         }
         
-      //A QUESTO PUNTO COL E ROW DEFINISCONO LA NUOVA POSIZIONE PACMAN  **************************************************
+      //A QUESTO PUNTO COL E ROW DEFINISCONO LA NUOVA POSIZIONE PACMAN
         
         updateAnimation();
         

@@ -17,7 +17,7 @@ public class Display extends Canvas {
     private boolean running;
     private BufferStrategy bs;
     
-    //6
+
     public Display(Game game) {
         this.game = game;
         int sx = (int) (game.screenSize.width * game.screenScale.getX());
@@ -27,7 +27,7 @@ public class Display extends Canvas {
         addKeyListener(new Keyboard());
     }
 
-    public void start(Agent grafica) {    //19
+    public void start(Agent grafica) {    
         
     	if (running) 
             return;
@@ -49,7 +49,7 @@ public class Display extends Canvas {
     private class MainLoop implements Runnable {
 
         @Override
-        public void run() {//56
+        public void run() {
         	
             long desiredFrameRateTime = 1000 / 60;
             long currentTime = System.currentTimeMillis();
@@ -90,11 +90,11 @@ public class Display extends Canvas {
         }
     }
     
-    public void update() {//57
+    public void update() {
         game.update();
     }
     
-    public void draw(Graphics2D g) {//63
+    public void draw(Graphics2D g) {
         game.draw(g);
     }
 }

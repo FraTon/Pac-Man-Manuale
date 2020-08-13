@@ -84,9 +84,6 @@ public class PacmanGame extends Game {
     public int currentFoodCount;
     
    
-    //METODI
-    
-    //1
     public PacmanGame() {
         screenSize = new Dimension(224, 288);
         screenScale = new Point2D.Double(2, 2);
@@ -100,7 +97,7 @@ public class PacmanGame extends Game {
     /*comunica a tutti gli attori del gioco il cambio di stato. 
      *su tutti gli attori che posseggono un metodo stateChanged, quest'ultimo viene invocato, tutti gli attori agiscono di conseguenza al cambio di stato
      */
-    public void setState(State state) {//70
+    public void setState(State state) {
         if (this.state != state) {
             this.state = state;
             broadcastMessage("stateChanged"); 
@@ -130,7 +127,7 @@ public class PacmanGame extends Game {
     }
     
     @Override
-    public void init(Agent grafica) {  //20
+    public void init(Agent grafica) {  
         addAllObjs(grafica);
         initAllObjs();
     }
@@ -138,7 +135,7 @@ public class PacmanGame extends Game {
     
     //crea e aggiunge tutti gli attori del tutti gli attori del gioco a @actors
     //l'ordine della creazione fa sì che quando andrò ad aggiornare controllerò prima le vitamine e a seconda che siano mangiate o meno settero la nuova modalità del fantasma (Esempio)
-    private void addAllObjs(Agent grafica) { //21
+    private void addAllObjs(Agent grafica) {
     	
         Pacman pacman = new Pacman(this,grafica);
         actors.add(new Initializer(this,grafica));
@@ -150,7 +147,7 @@ public class PacmanGame extends Game {
         for (int row = 0; row < 31; row++) {
             for (int col = 0; col < 36; col++) {
                 if (maze[row][col] == 1) 
-                    maze[row][col] = -1; // wall convert to -1 for ShortestPathFinder   ??????????????? CAPIRE BENE COSA FA IN TUTTO QUESTO PEZZO
+                    maze[row][col] = -1; // wall convert to -1 for ShortestPathFinder   
                 else if (maze[row][col] == 2) {
                     maze[row][col] = 0;
                     actors.add(new Food(this,grafica, col, row));
@@ -175,7 +172,7 @@ public class PacmanGame extends Game {
         actors.add(new HUD(this,grafica));
     }
     
-    private void initAllObjs() {//38
+    private void initAllObjs() {
         for (Actor actor : actors) 
             actor.init();
     }

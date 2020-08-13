@@ -17,11 +17,11 @@ public class Title extends PacmanActor {
 	private boolean pushSpaceToStartVisible;
 
     public Title(PacmanGame game,Agent grafica) {
-        super(game,grafica); //25
+        super(game,grafica);
     }
 
     @Override
-    public void init() {//40
+    public void init() {
         loadFrames("/res/title.png");
         x = 21;
         y = 100;
@@ -68,7 +68,7 @@ public class Title extends PacmanActor {
     }
 
     @Override
-    public void draw(Graphics2D g) {//67
+    public void draw(Graphics2D g) {
     	
         if (!visible) 
             return;

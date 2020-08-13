@@ -22,7 +22,7 @@ private Pacman pacman;
     }
 
     @Override
-    public void init() {//52
+    public void init() {
         loadFrames("/res/point_0.png", "/res/point_1.png",
                    "/res/point_2.png", "/res/point_3.png");
         collider = new Rectangle(0, 0, 4, 4);

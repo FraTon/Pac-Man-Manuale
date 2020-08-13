@@ -19,7 +19,7 @@ public class PowerBall extends PacmanActor {
     private int row;
     private boolean eated;
     
-    public PowerBall(PacmanGame game,Agent grafica, int col, int row) {  //30
+    public PowerBall(PacmanGame game,Agent grafica, int col, int row) {  
         super(game,grafica);
         this.col = col;
         this.row = row;
@@ -27,12 +27,12 @@ public class PowerBall extends PacmanActor {
 
     //INIZIALIZZAZIONE VITAMINA
     @Override
-    public void init() {  //44
+    public void init() {  
         loadFrames("/res/powerBall.png");
         x = col * 8 + 1 - 32;
         y = (row + 3) * 8 + 1;
         collider = new Rectangle(0, 0, 4, 4);
-        eated = true;  //MANGIATA?
+        eated = true;  //MANGIATA
     }
 
     //AGGIORNAMENTO VITAMINA 
@@ -51,16 +51,19 @@ public class PowerBall extends PacmanActor {
             visible = false;
             game.addScore(50);
             
+            //aggiunta di un behaviour all'agentGrafica che permette di ritrarre la vitamina mangiata
             agentGrafica.addBehaviour(new RetractPuntino(
     				agentGrafica,
     				"vitamina",
     				"("+col+",-"+row+")"
     			));
-            agentGrafica.addBehaviour(new NuovaCellaVuota(
+             //aggiunta di un behaviour all'agentGrafica che permette di asserire quella cella come vuota
+             agentGrafica.addBehaviour(new NuovaCellaVuota(
     				agentGrafica,
     				"vuota",
     				"("+col+",-"+row+")"
     			));
+            //aggiunta di un behaviour all'agentGrafica che permette di aggiornare il database
             agentGrafica.addBehaviour(new QueryDatabase(
     				agentGrafica,
     				"crea_database.pl",
@@ -72,7 +75,7 @@ public class PowerBall extends PacmanActor {
     }
     
     @Override
-    public void stateChanged() {//76
+    public void stateChanged() {
         if (game.getState() == State.TITLE ||
             game.getState() == State.LEVEL_CLEARED ||
             game.getState() == State.GAME_OVER) {

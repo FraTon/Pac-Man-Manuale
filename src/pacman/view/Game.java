@@ -25,12 +25,12 @@ public class Game {
 	}
 	
 	//AGGIORNA TUTTI GLI ATTORI
-	public void update() {//58
+	public void update() {
 		for (Actor actor : actors)
 			actor.update();
 	}
 	
-	public void draw(Graphics2D g) {//64
+	public void draw(Graphics2D g) {
 		for (Actor actor : actors)
 			actor.draw(g);
 	}
@@ -55,7 +55,7 @@ public class Game {
 	
 	
 	//se gli attori hanno il meotodo specificato, questo viene invocato, altrimenti nullla
-	public void broadcastMessage(String message) {//71
+	public void broadcastMessage(String message) {
 		for (Actor actor : actors) {
 			try {
 				Method method = actor.getClass().getMethod(message);

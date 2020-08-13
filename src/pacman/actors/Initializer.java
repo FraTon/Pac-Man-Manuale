@@ -15,7 +15,7 @@ public class Initializer extends PacmanActor {
     }
 
     @Override
-    public void updateInitializing() {//62
+    public void updateInitializing() {
     	
         yield:
         while (true) {

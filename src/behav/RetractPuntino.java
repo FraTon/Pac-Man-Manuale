@@ -7,11 +7,13 @@ import jade.core.behaviours.Behaviour;
 
 public class RetractPuntino extends MyOneShot {
 
-	private String predName;
-	private String argument;
+	private String predName; //stringa contenente il predicato
+	private String argument; //stringa contenente l'argomento del predicato
 
 	public RetractPuntino(Agent schedAgent, String predName, String argument) {
-		super(schedAgent);
+		
+		super(schedAgent); //chiama il costruttore della superclasse
+		//inizializzo delle variabili private
 		this.predName = predName;
 		this.argument = argument;
 	}
@@ -19,12 +21,14 @@ public class RetractPuntino extends MyOneShot {
 
 	public void action(){
 			
+		//goal: retract(predName+argument)
 		String goal = "retract(" + predName + argument + ")";
-		Query q = new Query(goal);
+		Query q = new Query(goal); //creazione di una query per il lancio del goal
 
+		//lancio del goal e se ha almeno una solzione
 		if (q.hasSolution()){
 			
-			//myPrint(goal);
+			//myPrint(goal); //stampa di debug
 		}
 	}	
 }

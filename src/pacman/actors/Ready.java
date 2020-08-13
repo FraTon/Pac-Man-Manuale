@@ -15,7 +15,7 @@ public class Ready extends PacmanActor {
     }
 
     @Override
-    public void init() {//53
+    public void init() {
         x = 11 * 8;
         y = 20 * 8;
         loadFrames("/res/ready.png");
@@ -49,7 +49,7 @@ public class Ready extends PacmanActor {
         while (true) {
             switch (instructionPointer) {
                 case 0:
-                    game.broadcastMessage("showAll");  //redne visibile il gioco
+                    game.broadcastMessage("showAll");  //rende visibile il gioco
                     waitTime = System.currentTimeMillis();
                     instructionPointer = 1;
                 case 1:
@@ -63,7 +63,7 @@ public class Ready extends PacmanActor {
     }
 
     @Override
-    public void stateChanged() {  //79
+    public void stateChanged() {  
         
     	visible = false;
         

@@ -38,11 +38,9 @@ public class Ghost extends PacmanActor {
     public int row;
     public int direction = 0;
     public static int lastDirection;
-    public static int direzioneRosso;
-    public static int colonnaRosso; //colonna matrice
-    public static int rigaRosso; //riga matrice
-    //public static int colonnaArancione;
-    //public static int rigaArancione;
+    public static int direzioneRosso; //direzione fantasma rosso
+    public static int colonnaRosso; //colonna matrice fantasma rosso
+    public static int rigaRosso; //riga matrice fantasma rosso
     
     
     public Mode mode = Mode.CAGE;
@@ -55,11 +53,12 @@ public class Ghost extends PacmanActor {
     // Using path finder just to return the ghost to the center (cage)
     public ShortestPathFinder pathFinder; 
     
-    public Ghost(PacmanGame game,Agent grafica, Pacman pacman, int type) { //31
+    public Ghost(PacmanGame game,Agent grafica, Pacman pacman, int type) {
         super(game,grafica);
         this.pacman = pacman;
         this.type = type;
         this.pathFinder = new ShortestPathFinder(game.maze);
+        //In base al type, assegnamento della stringa colore alla variabile color
         if(type==0)
         	color="rosso";
         if(type==1)
@@ -70,14 +69,14 @@ public class Ghost extends PacmanActor {
         	color="arancione";
     }
 
-    private void setMode(Mode mode) {//46
+    private void setMode(Mode mode) {
         this.mode = mode;
         modeChanged();
     }
     
     ///recupera tutte le immagini di ogni fantasma
     @Override
-    public void init() {//45
+    public void init() {
         String[] ghostFrameNames = new String[8 + 4 + 4];
         
         for (int i = 0; i < 8; i++) 
@@ -91,7 +90,7 @@ public class Ghost extends PacmanActor {
         
         loadFrames(ghostFrameNames);
         collider = new Rectangle(0, 0, 8, 8);
-        setMode(Mode.CAGE);                            //FANTASMI NELLA GABBIA
+        setMode(Mode.CAGE); //FANTASMI NELLA GABBIA
     }
     
     private int getTargetX(int col) {
@@ -108,7 +107,7 @@ public class Ghost extends PacmanActor {
         y = getTargetY(row);
     }
     
-    //ASSEGNA I VALOR COL E ROW ALLA POSIIONE DEL FANTASMA VERA E PROPRIA  ***********************
+    //ASSEGNA I VALOR COL E ROW ALLA POSIIONE DEL FANTASMA VERA E PROPRIA
     private void updatePosition(int col, int row) {
         this.col = col;
         this.row = row;
@@ -153,18 +152,18 @@ public class Ghost extends PacmanActor {
     }
     
     
-    //AGGIONRAMENTO POSIZIONE FANTASMA A SECONDA DELLA MODALITà DI GIOCO DEL SINGOLO FANTASMA  ****************************************************************************************
+    //AGGIONRAMENTO POSIZIONE FANTASMA A SECONDA DELLA MODALITà DI GIOCO DEL SINGOLO FANTASMA
     @Override
     public void updatePlaying() {
         switch (mode) {
             case CAGE: 
-            	updateGhostCage(); //possiamo non toccarlo
+            	updateGhostCage();
             	break;
             case NORMAL:
-            	updateGhostNormal();  //da modificare
+            	updateGhostNormal();
             	break;
             case VULNERABLE: 
-            	updateGhostVulnerable();   //da modificare
+            	updateGhostVulnerable();
             	break;
             case DIED: 
             	updateGhostDied();
@@ -210,13 +209,12 @@ public class Ghost extends PacmanActor {
                     updatePosition(initialPosition.x, initialPosition.y);
                     x -= 4;
                     cageUpDownCount = 0;
-                    
-                    //fantasma rosso
+                                   
                     if (type == 0) {
                         instructionPointer = 6;
                         break;
                     }
-                    else if (type == 2) {  //fantasma azzurro
+                    else if (type == 2) {
                         instructionPointer = 2;
                         break;
                     }
@@ -283,7 +281,7 @@ public class Ghost extends PacmanActor {
         }
     }
     
-    private PacmanCatchedAction pacmanCatchedAction = new PacmanCatchedAction();//32
+    private PacmanCatchedAction pacmanCatchedAction = new PacmanCatchedAction();
     
     private class PacmanCatchedAction implements Runnable {
        
@@ -296,7 +294,7 @@ public class Ghost extends PacmanActor {
     
     
     private void updateGhostNormal() {
-        if (checkVulnerableModeTime() && markAsVulnerable) {  //fantasma mangiabile?
+        if (checkVulnerableModeTime() && markAsVulnerable) {  //fantasma mangiabile
             setMode(Mode.VULNERABLE);   
             markAsVulnerable = false;
         }
@@ -307,7 +305,7 @@ public class Ghost extends PacmanActor {
     
     
     
-    private GhostCatchedAction ghostCatchedAction = new GhostCatchedAction();//33
+    private GhostCatchedAction ghostCatchedAction = new GhostCatchedAction();
     
     private class GhostCatchedAction implements Runnable {
         
@@ -336,14 +334,13 @@ public class Ghost extends PacmanActor {
     }
     
     
-    //FANTASMA MORTO MANGIATO DA PACMAN ***************************************************************
+    //FANTASMA MORTO MANGIATO DA PACMAN
     private void updateGhostDied() {
     	
         yield:
         while (true) {
             switch (instructionPointer) {
-                case 0:
-                	/* SE VOGLIAMO METTERE LA NOSTRA, TOGIERE TUTTO FINO A ...*/
+                case 0:                	
                     pathFinder.find(col, row, 18, 11);
                     instructionPointer = 1;
                 case 1:
@@ -352,23 +349,18 @@ public class Ghost extends PacmanActor {
                         continue yield;
                     }
                     
-                    Point nextPosition = pathFinder.getNext();
-                    /*QUI *********************************************************
-                     * CHIAMARE LA NOSTRA FUNZIONE E ASSEGNARE A COL E ROW LA POSIZIONE NUOVA
-                     * 
-                     * CHIAMAREMENTE AGGIONRARE I VALORI DI TUTTI I CASI*/
-                    
+                    Point nextPosition = pathFinder.getNext();                
                     col = nextPosition.x;
                     row = nextPosition.y;
                     instructionPointer = 2;
                 case 2:
                     if (!moveToGridPosition(col, row, 4)) {
-                        if (row == 11 && (col == 17 || col == 18)) {   //quasi arrivato?
-                            instructionPointer = 3;  //lo guida in manuela invece che fargli prendere celle dal percorso 
+                        if (row == 11 && (col == 17 || col == 18)) {
+                            instructionPointer = 3; 
                             continue yield;
                         }
                          
-                        instructionPointer = 1;   //continua a prendere cella dal percorso -> PROLOG DEVE PASSARE LA NUOVA CELLA OPPURE MI SALVO IL PERCORSO QUI E SE LA PRENDE DA SOLO (FORSE MEGLIO)*******
+                        instructionPointer = 1; 
                         continue yield;
                     }
                     
@@ -387,7 +379,7 @@ public class Ghost extends PacmanActor {
                     
                     break yield;
                 case 5:
-                    setMode(Mode.CAGE);  //tornatoa casa
+                    setMode(Mode.CAGE);  //tornato nel recinto
                     instructionPointer = 4;
                     break yield;
             }
@@ -408,6 +400,8 @@ public class Ghost extends PacmanActor {
             
                 case 0:
                 	
+                	//in base al colore del fantasma
+                	//aggiunta di un behaviour all'agentGrafica che permette di invocare la mossa di quel fantasma calcolata da prolog
                 	if(color.equals("rosso")){
             			
             			agentGrafica.addBehaviour(new MossaFantasmaRosso(
@@ -441,8 +435,7 @@ public class Ghost extends PacmanActor {
                     instructionPointer = 1;
                     
                 case 1:
-                	
-                  	//sposta immagine
+                
                     if (!moveToGridPosition(col, row, velocity)) {
                     	lastDirection = direction;
                         instructionPointer = 0;
@@ -467,7 +460,8 @@ public class Ghost extends PacmanActor {
 	           switch (instructionPointer) {
 	           
 	               case 0:
-	               	
+	            	   //in base al colore del fantasma
+	                   //aggiunta di un behaviour all'agentGrafica che permette di invocare la mossa per la fuuga di quel fantasma calcolata da prolog
 		               if(color.equals("rosso")){
 		               		
 		               		agentGrafica.addBehaviour(new FugaFantasmaRosso(
@@ -501,11 +495,11 @@ public class Ghost extends PacmanActor {
 		                instructionPointer = 1;
 	               case 1:
 	  
-	               	//sposta immagine
 	                   if (!moveToGridPosition(col, row, velocity)) {
 	                       lastDirection = direction;
 	                       instructionPointer = 0;
 	                   }
+	                   
 	                   //controlla se collide
 	                   if (collisionWithPacmanAction != null && checkCollisionWithPacman()) 
 	                       collisionWithPacmanAction.run();
@@ -520,7 +514,7 @@ public class Ghost extends PacmanActor {
     @Override
     public void updateGhostCatched() {
         if (mode == Mode.DIED) {
-            updateGhostDied(); //modificato
+            updateGhostDied();
             updateAnimation();
         }
     }
@@ -540,7 +534,7 @@ public class Ghost extends PacmanActor {
                         break yield;
                     
                     visible = false;
-                    setMode(Mode.CAGE);  //FANTASMI IN GABBIA
+                    setMode(Mode.CAGE);  //FANTASMI NEL RECINTO
                     updateAnimation();
                     break yield;
             }
@@ -573,7 +567,7 @@ public class Ghost extends PacmanActor {
     
     //VERIFICA SE FANTASMA ROSSO COLLIDE CON PAC-MAN
     private boolean checkCollisionWithPacman() {
-        pacman.updateCollider(); //aggiora l rettangolo di collisione di pacman e del fantasma
+        pacman.updateCollider(); //aggiora il rettangolo di collisione di pacman e del fantasma
         updateCollider();
         return pacman.collider.intersects(collider);
     }
@@ -583,12 +577,12 @@ public class Ghost extends PacmanActor {
         collider.setLocation((int) (x + 4), (int) (y + 4));
     }
     
-    private void modeChanged() {//47
+    private void modeChanged() {
         instructionPointer = 0;      
     }
     
     @Override
-    public void stateChanged() {//77
+    public void stateChanged() {
         if (game.getState() == State.TITLE) {
             updateTitle();
             visible = true;
@@ -599,7 +593,7 @@ public class Ghost extends PacmanActor {
             setMode(Mode.CAGE);
             updateAnimation();
             Point initialPosition = initialPositions[type];
-            updatePosition(initialPosition.x, initialPosition.y); // col, row
+            updatePosition(initialPosition.x, initialPosition.y);
             x -= 4;
         }
         else if (game.getState() == State.PLAYING && mode != Mode.CAGE) 

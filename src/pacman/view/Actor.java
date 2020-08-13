@@ -31,12 +31,12 @@ public class Actor <T extends Game> {
 	protected int instructionPointer;
 	protected long waitTime;
 	
-	public Actor(T game,Agent grafica) {  //23
+	public Actor(T game,Agent grafica) {
 		this.game = game;
 		agentGrafica=grafica;
 	}
 	
-	public void init() {//39
+	public void init() {
 		
 	}
 	
@@ -44,7 +44,7 @@ public class Actor <T extends Game> {
 		
 	}
 	
-	public void draw(Graphics2D g) {//65
+	public void draw(Graphics2D g) {
 		
 		if (!visible)
 			return;
@@ -67,7 +67,7 @@ public class Actor <T extends Game> {
 	}
 	
 	//carica le immagini degli attori
-	protected void loadFrames(String ... framesRes) {//41
+	protected void loadFrames(String ... framesRes) {
 		
 		try {
 			int framesLength = framesRes.length;

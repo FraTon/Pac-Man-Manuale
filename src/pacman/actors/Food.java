@@ -41,8 +41,6 @@ public class Food extends PacmanActor {
     
     //CONTROLLA SE HA COLLISO CON PAC-MAN 
     
-    // QUI BISOGNA RITRATTARE LA POSIZIONE DEL PUNTINO *******
-    
     @Override
     public void updatePlaying() {
 //        // for debug purpose A key clear level
@@ -54,16 +52,19 @@ public class Food extends PacmanActor {
             game.currentFoodCount--;
             game.addScore(10);
             
+            //aggiunta di un behaviour all'agentGrafica che permette di ritrarre il puntino mangiato
             agentGrafica.addBehaviour(new RetractPuntino(
     				agentGrafica,
     				"puntino",
     				"("+col+",-"+row+")"
     			));
+            //aggiunta di un behaviour all'agentGrafica che permette di asserire quella cella come vuota
             agentGrafica.addBehaviour(new NuovaCellaVuota(
     				agentGrafica,
     				"vuota",
     				"("+col+",-"+row+")"
     			));
+            //aggiunta di un behaviour all'agentGrafica che permette di aggiornare il database
             agentGrafica.addBehaviour(new QueryDatabase(
     				agentGrafica,
     				"crea_database.pl",
