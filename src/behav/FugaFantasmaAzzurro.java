@@ -36,9 +36,9 @@ public class FugaFantasmaAzzurro extends Behaviour {
 			
 		}
 	
-		//goal: assert(pacman(x,y)),assert(modalita(azzurro,fuga)),fuga(azzurro,x,y,NX,NY,Dir)
-		String goal2 = "assert(pacman("+fantasmaAzzurro.pacman.col+",-"+fantasmaAzzurro.pacman.row+")),assert(modalita("+fantasmaAzzurro.color+",fuga)),fuga("+fantasmaAzzurro.color+","+fantasmaAzzurro.col+",-"+fantasmaAzzurro.row+",NX,NY,Dir)";
-		
+		//goal: assert(pacman(x,y)),assert(modalita(azzurro,fuga)),fuga_azzurro(azzurro,AX,AY,RX,RY,DirezioneRosso,DirezionePacMan,NAX,NAY,DirA)
+		String goal2 = "assert(pacman("+fantasmaAzzurro.pacman.col+",-"+fantasmaAzzurro.pacman.row+")),assert(modalita("+fantasmaAzzurro.color+",fuga)),fuga_azzurro("+fantasmaAzzurro.color+","+fantasmaAzzurro.col+",-"+fantasmaAzzurro.row+","+Ghost.colonnaRosso+",-"+Ghost.rigaRosso+","+Ghost.direzioneRosso+","+fantasmaAzzurro.pacman.direction+",NX,NY,Dir)";
+				
 		//System.out.println("Fuga goal sarebbe: "+ goal2); //stampa di debug
 			
 		q = new Query(goal2); //creazione di una query per il lancio del goal

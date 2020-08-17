@@ -37,9 +37,9 @@ public class FugaFantasmaArancione extends Behaviour {
 			
 		}
 	
-		//goal: assert(pacman(x,y)),assert(modalita(arancione,fuga)),fuga(arancione,x,y,NX,NY,Dir)
-		String goal2 = "assert(pacman("+fantasmaArancione.pacman.col+",-"+fantasmaArancione.pacman.row+")),assert(modalita("+fantasmaArancione.color+",fuga)),fuga("+fantasmaArancione.color+","+fantasmaArancione.col+",-"+fantasmaArancione.row+",NX,NY,Dir)";	
-		
+		//goal: assert(pacman(x,y)),assert(modalita(arancione,fuga)),fuga_arancione(arancione,ARX,ARY,NARX,NARY,DirAR)
+		String goal2 = "assert(pacman("+fantasmaArancione.pacman.col+",-"+fantasmaArancione.pacman.row+")),assert(modalita("+fantasmaArancione.color+",fuga)),fuga_arancione("+fantasmaArancione.color+","+fantasmaArancione.col+",-"+fantasmaArancione.row+",NX,NY,Dir)";	
+				
 		//System.out.println("Fuga goal sarebbe: "+ goal2); //stampa di debug
 			
 		q = new Query(goal2); //creazione di una query per il lancio del goal
@@ -72,6 +72,10 @@ public class FugaFantasmaArancione extends Behaviour {
 			
 			//System.out.println("Fuga mossa "+fantasmaArancione.color+": " + fantasmaArancione.col + " " + fantasmaArancione.row + " " + fantasmaArancione.direction); //stampa di debug
     		
+			//E' necessario tenere traccia di questi valori, per poter calcolare la fuga_rosa
+			Ghost.colonnaArancione = fantasmaArancione.col;
+    		Ghost.rigaArancione = fantasmaArancione.row;
+			
 			c++; //incremento del contatore
 
 		}

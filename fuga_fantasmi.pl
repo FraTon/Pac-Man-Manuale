@@ -164,7 +164,7 @@ fuga_rosa(RSX,RSY,ARX,ARY,NX,NY,Dir):-
         assert(obiettivo(fuga,rosa,OX,OY)),
 
 	best(RSX,RSY,rosa,Percorso),
-	scrivi(Percorso),
+	%scrivi(Percorso),
 	mossa(Percorso,[NX,NY],NuovoPercorso),    % [NX,NY] coordinate della cella in cui muoversi per avvicinarsi all'obiettivo
 	incrementa_posizione(RSX,RSY,Dir,1,NX,NY),  % conosce la posizione attuale e la successiva,lo spostamento è unitario-> Direzione percorsa
 
@@ -186,8 +186,8 @@ fuga_rosa(RSX,RSY,ARX,ARY,NX,NY,Dir):-
 % opposta a quella della medusa rossa.
 %
 fuga_azzurro(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
-	%direzione_opposta(DirezioneFR,DirFR),  %direzione opposta rispetto a quella del fantasma rosso
-	mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir).
+	direzione_opposta(DirezioneFR,DirFR),  %direzione opposta rispetto a quella del fantasma rosso
+	mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirFR,DirezionePacMan,NX,NY,Dir).
 
 
 

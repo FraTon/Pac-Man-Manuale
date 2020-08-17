@@ -35,10 +35,10 @@ public class FugaFantasmaRosa extends Behaviour {
 			//System.out.println(goal.toString()); //stampa di debug
 			
 		}
-	
-		//goal: assert(pacman(x,y)),assert(modalita(rosa,fuga)),fuga(rosa,x,y,NX,NY,Dir)
-		String goal2 = "assert(pacman("+fantasmaRosa.pacman.col+",-"+fantasmaRosa.pacman.row+")),assert(modalita("+fantasmaRosa.color+",fuga)),fuga("+fantasmaRosa.color+","+fantasmaRosa.col+",-"+fantasmaRosa.row+",NX,NY,Dir)";	
 		
+		//goal: assert(pacman(x,y)),assert(modalita(rosa,fuga)),fuga_rosa(RSX,RSY,ARX,ARY,NRSX,NRSY,DirRS)
+		String goal2 = "assert(pacman("+fantasmaRosa.pacman.col+",-"+fantasmaRosa.pacman.row+")),assert(modalita("+fantasmaRosa.color+",fuga)),fuga_rosa("+fantasmaRosa.col+",-"+fantasmaRosa.row+","+Ghost.colonnaArancione+",-"+Ghost.rigaArancione+",NX,NY,Dir)";	
+				
 		//System.out.println("Fuga goal sarebbe: "+ goal2); //stampa di debug
 			
 		q = new Query(goal2); //creazione di una query per il lancio del goal

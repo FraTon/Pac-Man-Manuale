@@ -41,7 +41,8 @@ public class Ghost extends PacmanActor {
     public static int direzioneRosso; //direzione fantasma rosso
     public static int colonnaRosso; //colonna matrice fantasma rosso
     public static int rigaRosso; //riga matrice fantasma rosso
-    
+    public static int colonnaArancione;
+    public static int rigaArancione;
     
     public Mode mode = Mode.CAGE;
     public List<Integer> desiredDirections = new ArrayList<Integer>();

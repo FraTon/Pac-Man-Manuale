@@ -36,8 +36,8 @@ public class FugaFantasmaRosso extends Behaviour {
 			
 		}
 		
-		//goal: assert(pacman(x,y)),assert(modalita(rosso,fuga)),fuga(rosso,x,y,NX,NY,Dir)
-		String goal2 = "assert(pacman("+fantasmaRosso.pacman.col+",-"+fantasmaRosso.pacman.row+")),assert(modalita("+fantasmaRosso.color+",fuga)),fuga("+fantasmaRosso.color+","+fantasmaRosso.col+",-"+fantasmaRosso.row+",NX,NY,Dir)";
+		//goal: assert(pacman(x,y)),assert(modalita(rosso,fuga)),fuga_rosso(RX,RY,NRX,NRY,DirR)
+		String goal2 = "assert(pacman("+fantasmaRosso.pacman.col+",-"+fantasmaRosso.pacman.row+")),assert(modalita("+fantasmaRosso.color+",fuga)),fuga_rosso("+fantasmaRosso.col+",-"+fantasmaRosso.row+",NX,NY,Dir)";
 		
 		//System.out.println("Fuga goal sarebbe: "+ goal2); //stampa di debug
 			

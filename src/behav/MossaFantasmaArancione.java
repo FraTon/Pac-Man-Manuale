@@ -60,7 +60,11 @@ public class MossaFantasmaArancione extends Behaviour {
 			
 			//System.out.println("Mossa "+fantasmaArancione.col+": " + fantasmaArancione.col + " " + fantasmaArancione.row + " " + fantasmaArancione.direction); //stampa di debug	    		
 
-			c++; //incremento del contatore
+			//E' necessario tenere traccia di questi valori, per poter calcolare la fuga_rosa
+			Ghost.colonnaArancione = fantasmaArancione.col;
+    		Ghost.rigaArancione = fantasmaArancione.row;
+    		
+    		c++; //incremento del contatore
 
 		}
 		
