@@ -12,9 +12,7 @@ import javax.imageio.ImageIO;
 
 import jade.core.Agent;
 
-/**
- * @author dzimiks
- */
+
 public class Actor <T extends Game> {
 
 	public static final boolean DRAW_COLLIDER = false;

@@ -21,9 +21,7 @@ import behav.MossaFantasmaAzzurro;
 import behav.MossaFantasmaRosa;
 import behav.MossaFantasmaRosso;
 
-/**
- * @author dzimiks
- */
+
 public class Ghost extends PacmanActor {
 
 	public static Pacman pacman;

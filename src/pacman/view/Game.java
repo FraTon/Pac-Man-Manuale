@@ -9,9 +9,7 @@ import java.util.List;
 
 import jade.core.Agent;
 
-/**
- * @author dzimiks
- */
+
 public class Game {
 
 	public Dimension screenSize;

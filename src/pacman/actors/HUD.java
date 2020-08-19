@@ -7,9 +7,7 @@ import pacman.PacmanActor;
 import pacman.PacmanGame;
 import pacman.enums.State;
 
-/**
- * @author dzimiks
- */
+
 public class HUD extends PacmanActor {
 
 	public HUD(PacmanGame game,Agent grafica) {

@@ -7,11 +7,7 @@ import pacman.PacmanActor;
 import pacman.PacmanGame;
 import pacman.enums.State;
 
-/**
- * Point that is showed when ghost is captured by pacman. 
- * 
- * @author dzimiks
- */
+
 public class Point extends PacmanActor {
 
 private Pacman pacman;

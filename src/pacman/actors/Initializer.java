@@ -5,9 +5,7 @@ import pacman.PacmanActor;
 import pacman.PacmanGame;
 import pacman.enums.State;
 
-/**
- * @author dzimiks
- */
+
 public class Initializer extends PacmanActor {
 
 	public Initializer(PacmanGame game,Agent grafica) {

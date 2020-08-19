@@ -5,9 +5,7 @@ import pacman.PacmanActor;
 import pacman.PacmanGame;
 import pacman.enums.State;
 
-/**
- * @author dzimiks
- */
+
 public class GameOver extends PacmanActor {
 
 	public GameOver(PacmanGame game,Agent grafica) { 

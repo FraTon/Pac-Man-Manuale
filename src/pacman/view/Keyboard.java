@@ -4,9 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 
-/**
- * @author dzimiks
- */
+
 public class Keyboard extends KeyAdapter {
 
 	public static boolean[] keyPressed = new boolean[256];

@@ -9,9 +9,7 @@ import pacman.PacmanGame;
 import pacman.enums.State;
 import pacman.view.Keyboard;
 
-/**
- * @author dzimiks
- */
+
 public class Pacman extends PacmanActor {
 
 	public int col;

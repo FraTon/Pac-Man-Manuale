@@ -6,9 +6,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-/**
- * @author dzimiks
- */
+
 public class BitmapFontRenderer {
 
 	public BufferedImage bitmapFontImage;

@@ -8,9 +8,7 @@ import java.awt.image.BufferStrategy;
 
 import jade.core.Agent;
 
-/**
- * @author dzimiks
- */
+
 public class Display extends Canvas {
 
 	private Game game;

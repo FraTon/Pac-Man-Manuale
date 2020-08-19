@@ -10,9 +10,7 @@ import pacman.PacmanActor;
 import pacman.PacmanGame;
 import pacman.enums.State;
 
-/**
- * @author dzimiks
- */
+
 public class PowerBall extends PacmanActor {
 
 	private int col;

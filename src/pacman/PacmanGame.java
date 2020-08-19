@@ -20,9 +20,7 @@ import pacman.actors.Title;
 import pacman.view.Actor;
 import pacman.view.Game;
 
-/**
- * @author dzimiks
- */
+
 public class PacmanGame extends Game {
     
 	// 0: vuota

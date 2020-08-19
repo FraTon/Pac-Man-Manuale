@@ -9,11 +9,6 @@ import pacman.PacmanGame;
 import pacman.enums.State;
 
 
-/**
- * 28 x 31 cells
- * 
- * @author dzimiks
- */
 public class Background extends PacmanActor {
 
 	private boolean showBlockedCellColor = false;

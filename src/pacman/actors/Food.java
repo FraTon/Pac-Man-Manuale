@@ -15,9 +15,6 @@ import pacman.PacmanGame;
 import pacman.enums.State;
 
 
-/**
- * @author dzimiks
- */
 public class Food extends PacmanActor {
 
 	private int col;

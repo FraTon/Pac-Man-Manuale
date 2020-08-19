@@ -3,9 +3,7 @@ package pacman;
 import jade.core.Agent;
 import pacman.view.Actor;
 
-/**
- * @author dzimiks
- */
+
 public class PacmanActor extends Actor<PacmanGame> {
 
 	public PacmanActor(PacmanGame game,Agent grafica) { 
