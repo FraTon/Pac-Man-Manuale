@@ -228,26 +228,29 @@ sottoalberi(Costo,[N|NCoda],Sottoalbero):-
 % Data una cella, individua una cella adiacente.
 %
 % Ricordare che l'asse X coincide con le colonne di una matrice (cresce
-% verso destra), e l'asse Y coincide con le righe della matrice (cresco
+% verso destra), e l'asse Y coincide con le righe della matrice (cresce
 % verso il basso).
 %
 adiacente([X,Y1],[X,Y2]):-
-        Y2 is Y1+1. %sud
+        Y2 is Y1+1, %nord
+	limiti_y(_,MaxY),
+	Y2 =< MaxY.
 
 adiacente([X1,Y],[X2,Y]):-
 	X2 is X1-1, %ovest
-	X2 > 3.
+	limiti_x(MinX,_),
+	X2 >= MinX.
 
 adiacente([X,Y1],[X,Y2]):-
-        Y2 is Y1-1. %sud
+        Y2 is Y1-1, %sud
+	limiti_y(MinY,_),
+	Y2 >= MinY.
 
 adiacente([X1,Y],[X2,Y]):-
 	X2 is X1+1, %est
-	X2 < 32.
+	limiti_x(_,MaxX),
+	X2 =< MaxX.
 
-adiacente([31,-14],[4,-14]).
-
-adiacente([4,-14],[31,-14]).
 
 % INSERISCI/3
 %

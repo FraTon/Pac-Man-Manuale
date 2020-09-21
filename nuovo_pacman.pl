@@ -56,6 +56,7 @@ non_mosso_pacman(PX,PY):-
 
 % MOSSA FANTASMA ROSSO SE PACMAN NON SI è MOSSO
 %
+
 /*mossa_fantasma(rosso,X,Y,NX,NY,Dir):-
         pacman(PX,PY),
         non_mosso_pacman(PX,PY),  %NON SI è MOSSO
@@ -64,8 +65,8 @@ non_mosso_pacman(PX,PY):-
 	%ROSSO: prendo la mossa successiva del percorso ottimo già calcolato
 	percorso(std,rosso,[[NX,NY]|RestoDelPercorsoRosso]),
 	percorso(std,rosso,PercorsoRosso),
-        %prendi_la_testa(PercorsoRosso,RestoDelPercorsoRosso,[NX,NY]),
-        cancella_testa(PercorsoRosso,[[NX,NY]|RestoDelPercorsoRosso]),
+        prendi_la_testa(PercorsoRosso,RestoDelPercorsoRosso,[NX,NY]),
+        %cancella_testa(PercorsoRosso,[[NX,NY]|RestoDelPercorsoRosso]),
 	incrementa_posizione(X,Y,Dir,1,NX,NY),  % conosce la posizione attuale e la successiva,lo spostamento è unitario-> Direzione percorsa
 
 
@@ -74,7 +75,7 @@ non_mosso_pacman(PX,PY):-
 
 	ritratta(percorso,rosso),
         assert(percorso(std,rosso,RestoDelPercorsoRosso)).  %asserisco il resto del percorso ottimo
-**/
+*/
 
 
 % MOSSA FANTASMA ARANCIONE CON DISTANZA INFERIORE A 8 DA PACMAN
@@ -203,8 +204,7 @@ mossa_fantasma(arancione,FX,FY,NX,NY,Dir):-
 
 
 
-% MOSSA FANTASMA ROSSO o ARANCIONE SE HA UNA DISTANZA SUPERIORE AD 8 DA
-% PAC-MAN
+% MOSSA FANTASMA ROSSO
 %
 % Data la posizione attuale del fantasma (FX,FY) restituisce la
 % nuova posizione (mossa successiva) in cui dovrà spostarsi per
@@ -214,24 +214,24 @@ mossa_fantasma(arancione,FX,FY,NX,NY,Dir):-
 %
 % Si è già verificato se ci si trova ad un incrocio.
 %
-mossa_fantasma(Colore,FX,FY,NX,NY,Dir):-
+mossa_fantasma(rosso,FX,FY,NX,NY,Dir):-
 	pacman(PX,PY),   % istanzia PX e PY con le attuali coordinate di pacman
-	modalita(Colore,Modalita),
+	modalita(rosso,Modalita),
 
-        ritratta(obiettivo,Colore),
-        assert(obiettivo(Modalita,Colore,PX,PY)), %asserisce il suo obiettivo
+        ritratta(obiettivo,rosso),
+        assert(obiettivo(Modalita,rosso,PX,PY)), %asserisce il suo obiettivo
 
-	best(FX,FY,Colore,Percorso), %calcola percorso ottimo verso il suo obiettivo
+	best(FX,FY,rosso,Percorso), %calcola percorso ottimo verso il suo obiettivo
 	%scrivi(Percorso),
 
 	mossa(Percorso,[NX,NY],NuovoPercorso),  % [NX,NY] coordinate della cella in cui muoversi per avvicinarsi all'obiettivo
 	incrementa_posizione(FX,FY,Dir,1,NX,NY),  % conosce la posizione attuale e la successiva,lo spostamento è unitario-> Direzione percorsa
 
-	ritratta(percorso,Colore),
-	assert(percorso(Modalita,Colore,NuovoPercorso)), %asserisce percorso
+	ritratta(percorso,rosso),
+	assert(percorso(Modalita,rosso,NuovoPercorso)), %asserisce percorso
 
-	ritratta(fantasma,Colore),
-	assert(fantasma(Colore,FX,FY)).   %asserisce l'ultima posizione conosciuta
+	ritratta(fantasma,rosso),
+	assert(fantasma(rosso,FX,FY)).   %asserisce l'ultima posizione conosciuta
 
 
 
@@ -303,9 +303,9 @@ mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
 	assert(fantasma(azzurro,FX,FY)).   %asserisce l'ultima posizione conosciuta
 
 
-% MOSSA ROSA SE PACMAN NON SI è MOSSO E IL FANTASMA ROSA NON HA ACORA
+% MOSSA ROSA SE PACMAN NON SI è MOSSO E IL FANTASMA ROSA NON HA ANCORA
 % RAGGIUNTO IL SUO OBIETTIVO
-mossa_fantasma(rosa,X,Y,NX,NY,Dir):-
+/*mossa_fantasma(rosa,X,Y,_,NX,NY,Dir):-
         pacman(PX,PY),
         non_mosso_pacman(PX,PY),  %NON SI è MOSSO
         obiettivo(std,rosa,OX,OY),
@@ -325,7 +325,7 @@ mossa_fantasma(rosa,X,Y,NX,NY,Dir):-
 
 	ritratta(percorso,rosa),
 	assert(percorso(std,rosa,RestoDelPercorsoRosa)).
-
+*/
 
 
 
@@ -444,12 +444,34 @@ incrementa_posizione(X,Y,2,N,IX,IY):-
 incrementa_posizione(X,Y,3,N,IX,IY):-
 	IX is X,
 	IY is Y+N.
-%Tunnel da destra
-incrementa_posizione(31,-14,0,1,4,-14).
-
-%Tunnel da sinistra
-incrementa_posizione(4,-14,2,1,31,-14).
-
+%Tunnel orizzontale
+incrementa_posizione(X,Y,Dir,_,IX,IY):-
+	limiti_x(MinX,MaxX),
+	(
+		X is MinX,
+		!,
+		IX is MaxX,
+		Dir is 2
+		;
+		X is MaxX,
+		IX is MinX,
+		Dir is 0
+	),
+	IY is Y.
+%Tunnel verticale
+incrementa_posizione(X,Y,Dir,_,IX,IY):-
+	limiti_y(MinY,MaxY),
+	(
+		Y is MinY,
+		!,
+		IY is MaxY,
+		Dir is 1
+		;
+		Y is MaxY,
+		IY is MinY,
+		Dir is 3
+	),
+	IX is X.
 
 %DISTANZA
 %
@@ -474,7 +496,7 @@ obiettivo_azzurro(F1_X,F1_Y,DirezioneF1,Distanza,IX,IY):-
 
 mossa(Percorso,Mossa,RestoDelPercorso):-
     inverti(Percorso,PercorsoInvertito),  %inverte il percorso
-    cancella_testa(PercorsoInvertito,[Mossa|RestoDelPercorso]). %cancella il primmo elemento del percorso invertito
+    cancella_testa(PercorsoInvertito,[Mossa|RestoDelPercorso]). %cancella il primo elemento del percorso invertito
 
 
 

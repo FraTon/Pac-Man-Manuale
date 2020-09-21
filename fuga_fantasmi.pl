@@ -36,7 +36,7 @@ set_iniziale_fuga:-
 	).
 
 
-% FUGA FANTASMI
+% FUGA FANTASMI (predicato non utilizzato)
 %
 % Mette in fuga da Pac-Man tutti i fantasmi in modalità fuga.
 %
@@ -48,6 +48,7 @@ set_iniziale_fuga:-
 % restituite le coordinate della cella in cui spostarsi per avicinarsi
 % a Pac-Man.
 %
+/*
 fuga_fantasmi(RX,RY,AX,AY,RSX,RSY,ARX,ARY,DirezioneRosso,DirezionePacMan,PX,PY,NRX,NRY,NAX,NAY,NRSX,NRSY,NARX,NARY,DirR,DirA,DirRS,DirAR):-
 
 
@@ -77,7 +78,9 @@ fuga_fantasmi(RX,RY,AX,AY,RSX,RSY,ARX,ARY,DirezioneRosso,DirezionePacMan,PX,PY,N
 	    ;
 	    mossa_fantasma(arancione,ARX,ARY,NARX,NARY,DirAR)
 	).
+*/
 
+/*(predicato non utilizzato)
 
 fuga(Colore,FX,FY,NX,NY,Dir):-
 
@@ -103,7 +106,8 @@ fuga(Colore,FX,FY,NX,NY,Dir):-
         (   \+fantasma(Colore,_,_);
 	     retract(fantasma(Colore,_,_))),
 	assert(fantasma(Colore,FX,FY)).
-
+	
+*/
 
 
 % FUGA ROSSO
@@ -134,12 +138,10 @@ fuga_rosso(FX,FY,NX,NY,Dir):-
 	mossa(Percorso,[NX,NY],NuovoPercorso),    % [NX,NY] coordinate della cella in cui muoversi per avvicinarsi all'obiettivo
         incrementa_posizione(FX,FY,Dir,1,NX,NY),  % conosce la posizione attuale e la successiva,lo spostamento è unitario-> Direzione percorsa
 
-	(   \+percorso(_,rosso,_);
-	    retract(percorso(_,rosso,_))),
+	ritratta(percorso,rosso),
         assert(percorso(fuga,rosso,NuovoPercorso)),
 
-        (   \+fantasma(rosso,_,_);
-	     retract(fantasma(rosso,_,_))),
+	ritratta(fantasma,rosso),
 	assert(fantasma(rosso,FX,FY)).
 
 % FUGA ROSA
@@ -168,12 +170,10 @@ fuga_rosa(RSX,RSY,ARX,ARY,NX,NY,Dir):-
 	mossa(Percorso,[NX,NY],NuovoPercorso),    % [NX,NY] coordinate della cella in cui muoversi per avvicinarsi all'obiettivo
 	incrementa_posizione(RSX,RSY,Dir,1,NX,NY),  % conosce la posizione attuale e la successiva,lo spostamento è unitario-> Direzione percorsa
 
-        (   \+percorso(_,rosa,_);
-	     retract(percorso(_,rosa,_))),
+	ritratta(percorso,rosa),        
         assert(percorso(fuga,rosa,NuovoPercorso)),
 
-	(   \+fantasma(rosa,_,_);
-	     retract(fantasma(rosa,_,_))),
+	ritratta(fantasma,rosa),  	
 	assert(fantasma(rosa,NX,NY)).
 
 % FUGA AZZURRO

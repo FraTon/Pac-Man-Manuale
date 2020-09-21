@@ -194,9 +194,6 @@ asserisci_tunnel(y,X,true):-
 	assert(adiacente([X,MinY],[X,MaxY])),
 	assert(adiacente([X,MaxY],[X,MinY])).
 
-
-
-
 scatter_arancione:-
 	limiti_y(_,MaxY),
 

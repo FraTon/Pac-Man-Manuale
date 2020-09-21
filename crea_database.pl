@@ -169,7 +169,7 @@ esporta_muro:-
 	nl,
 	told.
 
-% ESPORTA MURO
+% ESPORTA CANCELLO
 %
 % Esporta la posizione del cancello asserendola nel
 % database.
