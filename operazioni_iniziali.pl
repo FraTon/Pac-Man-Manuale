@@ -1,6 +1,6 @@
 :-[predicati_pacman].
 :-[nuovo_pacman].
-%:-[database].
+:-[predicati_utili].
 
 :-dynamic limiti_x/2.
 :-dynamic limiti_y/2.
@@ -8,20 +8,18 @@
 :-dynamic limiti_campo_y/2.
 :-dynamic scatter/3.
 
-/*
-       ************* SI POTREBBEERO METTERE LE ASSERZIONI DEI TUNNEL NEL
-       DATABASE**********************************************
-
-
-	*/
 
 % OPERAZIONI INIZIALI
 %
-% Esegue delle operazioni iniziali necessarie
+% Esegue delle operazioni iniziali necessarie.
+%
+% Individua i limiti del campo da gioco, la presenza di
+% eventuali tunnel verticali e l'obiettivo scatter del fantasma
+% arancione e asserisce tutto quanto.
 %
 operazioni_iniziali:-
 	limiti_muri,     %calcola i limiti Min e Max di X e Y
-	cerca_tunnel,	 %individua e asserisce eventuali tunnel
+	cerca_tunnel,	 %individua e asserisce eventuali tunnel orizzontali/verticali
         scatter_arancione.  %asserisce il punto di scatter del fantasma arancione
 
 
@@ -31,8 +29,9 @@ operazioni_iniziali:-
 % Individa i limiti del campo da gioco imposti dalla posizione
 % delle pareti.
 %
-% Asserisce la Max X e Y e la Min X e Y del campo
-% da gioco.
+% Asserisce la Max X e Y e la Min X e Y del campo del campo da gioco,
+% ovvero le coordinate delle celle effettivamente percorribili che si
+% trovano alle estremità.
 %
 limiti_muri:-
 	findall([X,Y],muro(X,Y),Muri),
@@ -40,35 +39,21 @@ limiti_muri:-
 	assert(limiti_x(MinX,MaxX)),
 	assert(limiti_y(MinY,MaxY)).
 
-% MAX MIN X Y
-%
-% Data una lista contenente tutti i muri del gioco, individua i limiti
-% del gioco e quindi il valore della Max X e Y accettabili e della Min X
-% e Y accettabili.
-%
-max_min_x_y([],-10000,-10000,10000,10000).
-max_min_x_y([[X,Y]|C],MaxAttualeX,MaxAttualeY,MinAttualeX,MinAttualeY):-
-	max_min_x_y(C,MaxX,MaxY,MinX,MinY),
-	MaxAttualeX is max(MaxX,X),
-	MaxAttualeY is max(MaxY,Y),
-
-	MinAttualeX is min(MinX,X),
-	MinAttualeY is min(MinY,Y).
-
-
 
 
 % CERCA TUNNEL
 %
+% Individua il posizionamento del tunnel e asserisce l'adiacenza
+% delle due celle più esterne. Questo consente, durante il gioco, di
+% di considerare pari a 1 la distanza tra le due celle.
+%
 % Analizza la colonna corrispondente a MaxX (lato destro del campo da
 % gioco) e la riga corrispondente a MaxY (lato superiore del campo da
 % gioco) e controlla. Se l'intera riga/colonna è composta da muri, in
-% questo di caso sicuramente non ci saranno tunnel. Se invece la
-% riga/colonna non sono "piene", potrebbe esserci un tunnel, quindi si
-% cerca un'interruzione della continuità del muro, se viene rilevata e
-% nel muro opposto, in corrispondenza della stessa colonna/riga non c'è
-% un muro, si asserisce il tunnel.
-%
+% questo caso sicuramente non ci saranno tunnel. In caso contrario
+% invece, è necessario verificare se l'interruzione di continuità si
+% verifica a anche nella corrispettiva cella del lato opposto (stessa
+% colonna/riga) in caso affermativo si è individuato un tunnel.
 %
 cerca_tunnel:-
 	limiti_x(MinX,MaxX),
@@ -80,9 +65,9 @@ cerca_tunnel:-
 	length(MuroDx,Destra),
 	length(MuroSopra,Sopra),
 
+	/*se il numero di elementi di tipo muro trovati nelle due pareti sono pari alla
+	lunghezza delle pareti, non ci sono interruzioni e quindi tunnel, altrimenti si e li individua*/
 	(
-	    %valore_assoluto(MaxY,Max1),
-	    %valore_assoluto(MinY,Min1),
 	    Destra is MaxY-MinY +1  % +1 perchè devo tenere conto del fatto che la prima riga è 0 e non 1
 	    ;
 	    cerca_interruzioni(x,MaxX,MuroDx,Interruzioni1),
@@ -90,8 +75,6 @@ cerca_tunnel:-
 	),
 
 	(
-	    %valore_assoluto(MaxX,Max2),
-	    %valore_assoluto(MinX,Min2),
 	    Sopra is MaxX - MinX +1
 	    ;
 	    cerca_interruzioni(y,MaxY,MuroSopra,Interruzioni2),
@@ -99,76 +82,58 @@ cerca_tunnel:-
 	).
 
 
-% CERCA INTERRUZIONI MURO DESTRA
+
+% CERCA INTERRUZIONI
 %
-% Cerca un'interruzione della continuità dela parete di destra.
+% Cerca interruzioni della continuità nella parete di destra e in quella
+% superiore.
 %
 cerca_interruzioni(x,XFissa,MuroDx,Interruzioni):-
 
 	primo_elemento(MuroDx,Primo),
 	ultimo_elemento(MuroDx,Ultimo),
 
-	%cerca celle non murarie nella parete di dx,  tra il primo e l'utimo elemento murarario trovati
-	findall(Y,(vuota(XFissa,Y),Y>Primo,Y<Ultimo),Vuote),   %celle senza puntini tra il primo e l'utimo elemento murarario trovati
+	%cerca celle non murarie nella parete di dx,  tra il primo e l'utimo elemento di tipo muro trovati
+	findall(Y,(vuota(XFissa,Y),Y>Primo,Y<Ultimo),Vuote),   %celle vuote tra il primo e l'utimo elemento murarario trovati
 	findall(Y,(puntino(XFissa,Y),Y>Primo,Y<Ultimo),Puntino),   %celle con puntini  tra il primo e l'utimo elemento murarario trovati
 	findall(Y,(vitamina(XFissa,Y),Y>Primo,Y<Ultimo),Vitamina),  %celle con vitamine  tra il primo e l'utimo elemento murarario trovati
 
 	append(Puntino,Vitamina,Punti),
 	append(Punti,Vuote,Interruzioni).
 
-% CERCA INTERRUZIONI MURO SUPERIORE
-%
-% Cerca un'interruzione della continuità dela parete superiore.
-%
 cerca_interruzioni(y,YFissa,MuroSopra,Interruzioni):-
 	primo_elemento(MuroSopra,Primo),
 	ultimo_elemento(MuroSopra,Ultimo),
 
-	%cerca celle non murarie nella parete di superiore, tra il primo e l'utimo elemento murario trovati
-	findall(X,(vuota(X,YFissa),X>Primo,X<Ultimo),Vuote), %celle senza puntini tra il primo e l'utimo elemento murarario trovati
+	%cerca celle non murarie nella parete di superiore, tra il primo e l'utimo elemento di tipo muro trovati
+	findall(X,(vuota(X,YFissa),X>Primo,X<Ultimo),Vuote), %celle vuote tra il primo e l'utimo elemento murarario trovati
 	findall(X,(puntino(X,YFissa),X>Primo,X<Ultimo),Puntino),  %celle con puntini  tra il primo e l'utimo elemento murarario trovati
 	findall(X,(vitamina(X,YFissa),X>Primo,X<Ultimo),Vitamina),  %celle con vitamine  tra il primo e l'utimo elemento murarario trovati
 
 	append(Puntino,Vitamina,Punti),
 	append(Punti,Vuote,Interruzioni)	.
 
-% PRIMO ELEMENTO
-%
-% Individua il primo elemento di una lista
-%
-primo_elemento([T|_],T).
-
-% ULTIMO ELEMENTO
-%
-% Individua l'ultimo elemento di una lista
-%
-
-ultimo_elemento([Ultimo],Ultimo).
-ultimo_elemento([_|C],Ultimo):-
-	ultimo_elemento(C,Ultimo).
-
 
 
 % VERIFICA TUNNEL
 %
-% Data una lista di possibli tunnel verifica se sono effettivamente dei
-% tunnel, ed in caso affermativo li asserisce.
+% Data una lista di possibli tunnel verifica se sono effettivamente
+% tali ed in caso affermativo li asserisce.
 %
 % Per capire se potrebbero essere dei tunnel, controlla se la
-% corrispondente cella nella parete opposto (la cella in cui
-% eventualmente dovrebbe arrivare pacman dopo aver attraversato il
-% tunnel), contiene un muro, in quel caso sicuramente non abbiamo
-% trovato un tunnel.
-% Se invece la cella corrispondente nella parete opposta non contiene un
-% muro, potrebbe effettiamente trattarsi di un tunnel, o solamente un
-% cella fuori dal campo di gioco; in ogni caso viene asserita la
-% presenza di un tunnel.
-
+% corrispondente cella nella parete opposta (la cella in cui
+% eventualmente dovrebbero arrivare i personaggi dopo aver attraversato
+% il tunnel), contiene un muro, in quel caso
+% sicuramente non abbiamo trovato un tunnel. Se invece la cella
+% corrispondente nella parete opposta non contiene un muro, potrebbe
+% effettiamente trattarsi di un tunnel, o solamente un cella fuori dal
+% campo di gioco; in ogni caso viene asserita la presenza di un tunnel.
+%
 verifica_tunnel(_,[]).
 verifica_tunnel(x,[T|C]):-
         verifica_tunnel(x,C),
 
-	limiti_x(MinX,_),   %recupera il valore della variabile fissa
+	limiti_x(MinX,_),
 
 	\+muro(MinX,T),   %controlla se sulla stessa Y ma nella parete opposto (sinistra) non c'è il muro, in tal caso-> tunnel
 	asserisci_tunnel(x,T,true).
@@ -176,10 +141,12 @@ verifica_tunnel(x,[T|C]):-
 verifica_tunnel(y,[T|C]):-
         verifica_tunnel(y,C),
 
-	limiti_y(MinY,_),   %recupera il valore della variabile fissa
+	limiti_y(MinY,_),
 
 	\+muro(T,MinY),   %controlla se sulla stessa Y ma nella parete opposto (inferiore) non c'è il muro, in tal caso-> tunnel
 	asserisci_tunnel(y,T,true).
+
+
 
 % ASSERISCI TUNNEL
 %
@@ -195,6 +162,13 @@ asserisci_tunnel(y,X,true):-
 	assert(adiacente([X,MinY],[X,MaxY])),
 	assert(adiacente([X,MaxY],[X,MinY])).
 
+
+
+% SCATTER ARANCIONE
+%
+% Individua la cella transitabile posizionata nell'angolo in alto a
+% destra e la asserisce come punto di scatter del fatnasma arancione.
+%
 scatter_arancione:-
 	limiti_y(_,MaxY),
 
@@ -205,48 +179,9 @@ scatter_arancione:-
 	findall(X,(puntino(X,Y),X<Limite),Puntini),
 	findall(X,(vuota(X,Y),X<Limite),Vuote),
 
-	%primo_elemento(Puntini,PrimoPuntino),
-	%ultimo_elemento(Puntini,UltimoPuntino),
-	massimo_lista(Puntini,UltimoPuntino),   % massima coordinata x tra le celle della riga MaxY-1 che contiene un puntino
-
-	%primo_elemento(Vuote,PrimVuota),
-	massimo_lista(Vuote,UltimaVuota),   % massima coordinata x tra le celle della riga MaxY-1 che è vuota
-
-	%primo_elemento(Vitamine,PrimaVitamina),
-	%ultimo_elemento(Vitamine,UltimaVitamina),    % massima coordinata x tra le celle della riga MaxY-1 che contiene un vitamina
-
+	massimo_lista(Puntini,UltimoPuntino),   % massima coordinata x tra le celle con puntini della riga MaxY-1
+	massimo_lista(Vuote,UltimaVuota),   % massima coordinata x tra le celle vuote della riga MaxY-1
 
 	Max is max(UltimoPuntino,UltimaVuota),
-	%Max2 is max(Max,UltimaVitamina),
 
 	assert(scatter(arancione,Max,Y)).   %asserisce l'obiettivo del fantasma arancione in modalità scatter
-/*
-percorso_scatter_arancione(Max2,Max):-
-	assert(modalita(arancione,scatter)),
-
-	best(Max2,Max,arancione,Percorso),*/
-
-
-
-% MASSIMO LISTA
-%
-% Individua il massimo valore contenuto in una lista.
-%
-massimo_lista([],-10000).
-massimo_lista([T],T):-
-	!.
-massimo_lista([T|C],MaxAttuale):-
-	massimo_lista(C,Max),
-	MaxAttuale is max(T,Max).
-
-% MINIMO LISTA
-%
-% Individua il minimo valore contenuto in una lista.
-%
-minimo_lista([],10000).
-minimo_lista([T],T):-
-	!.
-minimo_lista([T|C],MinAttuale):-
-	minimo_lista(C,Min),
-	MinAttuale is min(T,Min).
-
