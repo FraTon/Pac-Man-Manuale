@@ -2,15 +2,12 @@
 :-dynamic puntino/2.
 :-dynamic vuota/2.
 
-vecchio_pacman(24,-23).
+vecchio_pacman(29,-20).
 
 fantasma_start(rosso,18,-11).
 fantasma_start(azzurro,18,-14).
 fantasma_start(rosa,16,-14).
 fantasma_start(arancione,20,-14).
-
-cancello(17,-12).
-cancello(18,-12).
 
 vuota(16,-9).
 vuota(19,-9).
@@ -63,6 +60,28 @@ vuota(22,-23).
 vuota(23,-23).
 vuota(24,-23).
 vuota(25,-23).
+vuota(25,-24).
+vuota(25,-25).
+vuota(25,-26).
+vuota(26,-26).
+vuota(27,-26).
+vuota(28,-26).
+vuota(28,-25).
+vuota(28,-24).
+vuota(28,-23).
+vuota(29,-23).
+vuota(30,-23).
+vuota(30,-22).
+vuota(30,-21).
+vuota(30,-20).
+vuota(29,-20).
+vuota(28,-20).
+vuota(27,-20).
+vuota(26,-20).
+vuota(25,-20).
+vuota(24,-20).
+vuota(23,-20).
+vuota(22,-20).
 
 muro(4,0).
 muro(5,0).
@@ -291,6 +310,8 @@ muro(12,-12).
 muro(14,-12).
 muro(15,-12).
 muro(16,-12).
+muro(17,-12).
+muro(18,-12).
 muro(19,-12).
 muro(20,-12).
 muro(21,-12).
@@ -778,27 +799,16 @@ puntino(16,-20).
 puntino(19,-20).
 puntino(20,-20).
 puntino(21,-20).
-puntino(22,-20).
-puntino(23,-20).
-puntino(24,-20).
-puntino(25,-20).
-puntino(26,-20).
-puntino(27,-20).
-puntino(28,-20).
-puntino(29,-20).
-puntino(30,-20).
 puntino(5,-21).
 puntino(10,-21).
 puntino(16,-21).
 puntino(19,-21).
 puntino(25,-21).
-puntino(30,-21).
 puntino(5,-22).
 puntino(10,-22).
 puntino(16,-22).
 puntino(19,-22).
 puntino(25,-22).
-puntino(30,-22).
 puntino(6,-23).
 puntino(7,-23).
 puntino(10,-23).
@@ -808,20 +818,14 @@ puntino(13,-23).
 puntino(14,-23).
 puntino(15,-23).
 puntino(16,-23).
-puntino(28,-23).
-puntino(29,-23).
 puntino(7,-24).
 puntino(10,-24).
 puntino(13,-24).
 puntino(22,-24).
-puntino(25,-24).
-puntino(28,-24).
 puntino(7,-25).
 puntino(10,-25).
 puntino(13,-25).
 puntino(22,-25).
-puntino(25,-25).
-puntino(28,-25).
 puntino(5,-26).
 puntino(6,-26).
 puntino(7,-26).
@@ -836,10 +840,6 @@ puntino(19,-26).
 puntino(20,-26).
 puntino(21,-26).
 puntino(22,-26).
-puntino(25,-26).
-puntino(26,-26).
-puntino(27,-26).
-puntino(28,-26).
 puntino(29,-26).
 puntino(30,-26).
 puntino(5,-27).
@@ -880,5 +880,4 @@ puntino(30,-29).
 vitamina(5,-3).
 vitamina(30,-3).
 vitamina(5,-23).
-vitamina(30,-23).
 

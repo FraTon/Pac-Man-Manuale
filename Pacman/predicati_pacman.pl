@@ -146,8 +146,7 @@ successori([X1,Y1],Successori):-
 % celle in cui è ammissible lo spostamento.
 %
 % Non è ammissibile lo spostamento in celle già facenti parte del
-% percorso o in celle di tipo "cancello" (a meno che il fantasma non sia
-% stato mangiato)
+% percorso
 %
 rimuovi_celle_non_ammissibili([],_,[]).
 rimuovi_celle_non_ammissibili([T|C],Percorso,NuoviSuccessori):-
@@ -170,13 +169,8 @@ inserisci([X,Y],Percorso,Successori,Successori):-
 	    ;
             b_getval(colore,Colore),
 	    modalita(Colore,Modalita),
-            (
-		\+ Modalita = 'mangiato',   %modalità NON è mangiato
-		cancello(X,Y)	    %cancello non è accessibile
-		;
-		obiettivo(Modalita-scatter,arancione,_,_),
-		fantasma(arancione,X,Y)   %non può tornare nella posizione precedente
-	    )
+            obiettivo(Modalita-scatter,arancione,_,_),
+            fantasma(arancione,X,Y)   %non può tornare nella posizione precedente	 
 	).
 inserisci(T,_,Successori,[T|Successori]).
 

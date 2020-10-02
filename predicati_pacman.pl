@@ -21,19 +21,23 @@ manhattan([X1,Y1],Distanza):-
 	modalita(Colore,Modalita),
 	obiettivo(Modalita,Colore,X2,Y2),
 
-	%Distanza considerando uscita tunnel destra
-	valore_assoluto(X1-31,A),
-	valore_assoluto(Y1+14,B),
-	valore_assoluto(4-X2,C),
-	valore_assoluto(-14-Y2,D),
-	Distanza1 is (A+B+C+D+1),
+	limiti_x(MinX,MaxX),
+     
+	%Distanza considerando ingresso tunnel destra
+	valore_assoluto(X1-MaxX,A),
+	%valore_assoluto(Y1+14,B),
+	valore_assoluto(MinX-X2,B),
+	valore_assoluto(Y1-Y2,C),	
+	%valore_assoluto(-14-Y2,D),
+	Distanza1 is (A+B+C+1),
 
-	%Distanza considerando uscita tunnel sinistra
-	valore_assoluto(X1-4,A1),
-	valore_assoluto(Y1+14,B1),
-	valore_assoluto(31-X2,C1),
-	valore_assoluto(-14-Y2,D1),
-	Distanza2 is (A1+B1+C1+D1+1),
+	%Distanza considerando ingresso tunnel sinistra
+	valore_assoluto(X1-MinX,A1),
+	%valore_assoluto(Y1+14,B1),
+	valore_assoluto(MaxX-X2,B1),
+	valore_assoluto(Y1-Y2,C1),
+	%valore_assoluto(-14-Y2,D1),
+	Distanza2 is (A1+B1+C1+1),
 
 	%Distanza manhattan, senza considerare il tunnel
 	valore_assoluto(X1-X2,X),

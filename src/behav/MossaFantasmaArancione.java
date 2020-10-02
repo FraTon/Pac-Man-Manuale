@@ -58,7 +58,7 @@ public class MossaFantasmaArancione extends Behaviour {
 			
 			fantasmaArancione.direction = Integer.parseInt(nuovaDirezione.toString()); //aggiornamento della direzione del fantasma
 			
-			//System.out.println("Mossa "+fantasmaArancione.col+": " + fantasmaArancione.col + " " + fantasmaArancione.row + " " + fantasmaArancione.direction); //stampa di debug	    		
+			//System.out.println("Mossa "+fantasmaArancione.color+": " + fantasmaArancione.col + " " + fantasmaArancione.row + " " + fantasmaArancione.direction); //stampa di debug	    		
 
 			//E' necessario tenere traccia di questi valori, per poter calcolare la fuga_rosa
 			Ghost.colonnaArancione = fantasmaArancione.col;

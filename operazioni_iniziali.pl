@@ -1,4 +1,5 @@
 :-[predicati_pacman].
+:-[nuovo_pacman].
 %:-[database].
 
 :-dynamic limiti_x/2.

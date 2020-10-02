@@ -19,13 +19,13 @@ public class Pacman extends PacmanActor {
     public int dx;
     public int dy;
     public long diedTime;
-    //public static Boolean asserita = new Boolean(false); //falsa se posizione pacman non è asserito, vera se è asserito
+    
     
     public Pacman(PacmanGame game,Agent grafica) {
         super(game,grafica);
     }
 
-    //CARICA IMMAINI DI PACMAN
+    //CARICA IMMAGINI DI PACMAN
     @Override
     public void init() { //49
         String[] pacmanFrameNames = new String[30];
@@ -172,6 +172,7 @@ public class Pacman extends PacmanActor {
                     
                     break yield;
             }
+
         }
         
       //A QUESTO PUNTO COL E ROW DEFINISCONO LA NUOVA POSIZIONE PACMAN

@@ -4,7 +4,6 @@
 :-dynamic pacman_start/2.
 :-dynamic fantasma_start/3.
 :-dynamic muro/2.
-:-dynamic cancello/2.
 :-dynamic vitamina/2.
 :-dynamic puntino/2.
 :-dynamic vuota/2.
@@ -44,8 +43,6 @@ esporta:-
         dinamicita,
 	esporta_pacman,  %posizione iniziale pacman
 	esporta_fantasma, %posizioni iniziali fantasmi
-
-	esporta_cancello, %posizione cancello
 
 	esporta_vuota,  %celle vuote
 
@@ -169,24 +166,6 @@ esporta_muro:-
 	nl,
 	told.
 
-% ESPORTA MURO
-%
-% Esporta la posizione del cancello asserendola nel
-% database.
-%
-esporta_cancello:-
-	cancello(X,Y),
-	append('database.pl'),
-
-	write('cancello('),write(X),
-	write(','),write(Y),
-	write(').'),
-	nl,
-	fail.
-
-esporta_cancello:-
-	nl,
-	told.
 
 
 % ESPORTA VUOTA

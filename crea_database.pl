@@ -42,7 +42,8 @@ importa(Csv1,Csv2) :-
 esporta:-
         %working_directory(_,'C:/Users/Utente/Desktop/PAC-MAN modificabili'),
         dinamicita,
-	esporta_pacman,  %posizione iniziale pacman
+        %esporta_pacman,
+	esporta_vecchio_pacman,  %posizione iniziale pacman
 	esporta_fantasma, %posizioni iniziali fantasmi
 
 	esporta_cancello, %posizione cancello
@@ -69,11 +70,35 @@ dinamicita:-
 dinamicita:-
 	told.
 
+
+
 % ESPORTA PACMAN
 %
 % Esporta la posizione iniziale di Pac-Man asserendola nel database.
 %
+
 esporta_pacman:-
+
+     pacman_start(X,Y),
+     append('database.pl'),
+ 
+     write('pacman_start('),write(X),
+     write(','),write(Y),
+     write(').'),
+     nl,
+     fail.
+ 
+esporta_pacman:-
+
+     nl,
+
+     told.
+
+% ESPORTA VECCHIO PACMAN
+%
+% Esporta la vecchia posizione di Pac-Man asserendola nel database.
+%
+esporta_vecchio_pacman:-
 	vecchio_pacman(X,Y),
 	append('database.pl'),
 
@@ -83,7 +108,7 @@ esporta_pacman:-
 	nl,
 	fail.
 
-esporta_pacman:-
+esporta_vecchio_pacman:-
 	nl,
 	told.
 

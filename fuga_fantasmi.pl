@@ -133,7 +133,9 @@ fuga_rosso(FX,FY,NX,NY,Dir):-
 	     retract(obiettivo(_,rosso,_,_))),
 	assert(obiettivo(fuga,rosso,OX,OY)),
 
-	best(FX,FY,rosso,Percorso),
+	nuova_mossa(rosso,fuga,FX,FY,NX,NY,Dir).
+	
+	/*best(FX,FY,rosso,Percorso),
 	%scrivi(Percorso),
 	mossa(Percorso,[NX,NY],NuovoPercorso),    % [NX,NY] coordinate della cella in cui muoversi per avvicinarsi all'obiettivo
         incrementa_posizione(FX,FY,Dir,1,NX,NY),  % conosce la posizione attuale e la successiva,lo spostamento è unitario-> Direzione percorsa
@@ -142,7 +144,7 @@ fuga_rosso(FX,FY,NX,NY,Dir):-
         assert(percorso(fuga,rosso,NuovoPercorso)),
 
 	ritratta(fantasma,rosso),
-	assert(fantasma(rosso,FX,FY)).
+	assert(fantasma(rosso,FX,FY)).**/
 
 % FUGA ROSA
 %
@@ -165,7 +167,9 @@ fuga_rosa(RSX,RSY,ARX,ARY,NX,NY,Dir):-
 	     retract(obiettivo(_,rosa,_,_))),
         assert(obiettivo(fuga,rosa,OX,OY)),
 
-	best(RSX,RSY,rosa,Percorso),
+	nuova_mossa(rosa,fuga,FX,FY,NX,NY,Dir).
+
+	/*best(RSX,RSY,rosa,Percorso),
 	%scrivi(Percorso),
 	mossa(Percorso,[NX,NY],NuovoPercorso),    % [NX,NY] coordinate della cella in cui muoversi per avvicinarsi all'obiettivo
 	incrementa_posizione(RSX,RSY,Dir,1,NX,NY),  % conosce la posizione attuale e la successiva,lo spostamento è unitario-> Direzione percorsa
@@ -174,7 +178,7 @@ fuga_rosa(RSX,RSY,ARX,ARY,NX,NY,Dir):-
         assert(percorso(fuga,rosa,NuovoPercorso)),
 
 	ritratta(fantasma,rosa),  	
-	assert(fantasma(rosa,NX,NY)).
+	assert(fantasma(rosa,NX,NY)).*/
 
 % FUGA AZZURRO
 %
@@ -183,11 +187,12 @@ fuga_rosa(RSX,RSY,ARX,ARY,NX,NY,Dir):-
 %
 % Il fantasma azzurro si comporta esattamente come nella modalità
 % std, con la differenza che questa volta si muove in direzione
-% opposta a quella della medusa rossa.
+% opposta a quella della fantasma rosso.
 %
 fuga_azzurro(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
 	direzione_opposta(DirezioneFR,DirFR),  %direzione opposta rispetto a quella del fantasma rosso
 	mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirFR,DirezionePacMan,NX,NY,Dir).
+	
 
 
 

@@ -1,7 +1,6 @@
 package agents;
 
 
-import behav.AssertCancello;
 import behav.AssertCellaVuota;
 import behav.AssertFantasma;
 import behav.AssertMuro;
@@ -15,7 +14,7 @@ public class DatabaseAgent extends Agent {
 
 	public void setup(){
 		
-		//Definizione della matrice di gioco, per rimanere coerenti con la grafica implementata
+		//Definizione della matrice di gioco, per rimanere coerenti con la grafica implementata		
 		int maze1[][] = {
 		        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		        {1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1},
@@ -29,7 +28,7 @@ public class DatabaseAgent extends Agent {
 		        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 4, 4, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		        {1, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1},
 		        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -59,11 +58,10 @@ public class DatabaseAgent extends Agent {
 		Object[] muro = new Object[1000]; //array per le celle muro
 		Object[] puntino = new Object[1000]; //array per i puntini non mangiati
 		Object[] vitamina = new Object[5]; //array per le vitamine non mangiate
-		Object[] cancello = new Object[3]; //array per le celle cancello
 		
 
 		//inizializzazione dei contatori a 0
-		int v = 0, m = 0, pu = 0, vi = 0, c = 0;
+		int v = 0, m = 0, pu = 0, vi = 0;
 		
 		//per ogni riga
 		for(int row = 0; row < 31; row++) {
@@ -80,27 +78,24 @@ public class DatabaseAgent extends Agent {
 					if (maze1[row][col] == 0) {
 						vuota[v] = (col+",-"+row);
 						v++;
-					//se la cella vale 1, inserisci nell'array la posizione dell'elemento muro
-					}else if (maze1[row][col] == 1) {
+					
+					}else if (maze1[row][col] == 1) { //se la cella vale 1, inserisci nell'array la posizione dell'elemento muro
 						muro[m] = (col+",-"+row);
 						m++;				
-					//se la cella vale 2, inserisci nell'array la posizione dell'elemento puntino
-					}else if (maze1[row][col] == 2) {
+					
+					}else if (maze1[row][col] == 2) { //se la cella vale 2, inserisci nell'array la posizione dell'elemento puntino
 						puntino[pu] = (col+",-"+row);
-						pu++;							
-					//se la cella vale 3, inserisci nell'array la posizione dell'elemento vitamina
-					}else if (maze1[row][col] == 3) {
+						pu++;	
+						
+					}else if (maze1[row][col] == 3) { //se la cella vale 3, inserisci nell'array la posizione dell'elemento vitamina
 						vitamina[vi] = (col+",-"+row);
-						vi++;		
-					//se la cella vale 4, inserisci nell'array la posizione dell'elemento cancello
-					}else if (maze1[row][col] == 4) {
-						cancello[c] = (col+",-"+row);
-						c++;							
+						vi++;							
 					}
 				}
 			}
 		}	
 			
+		
 		//Pacman
 		//Aggiunta di un behaviour per asserire la posizione di pacman su prolog
 		this.addBehaviour(new AssertPacman(
@@ -142,17 +137,6 @@ public class DatabaseAgent extends Agent {
 					this,
 					"muro",
 					muro
-					));
-			}
-		
-		//Cancelli
-		//Se l'array dei cancelli non è vuoto
-		if (cancello != null){
-			//Aggiunta di un behaviour per asserire la posizione dei cancelli su prolog
-			this.addBehaviour(new AssertCancello(
-					this,
-					"cancello",
-					cancello
 					));
 			}
 

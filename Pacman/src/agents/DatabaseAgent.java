@@ -1,7 +1,6 @@
 package agents;
 
 
-import behav.AssertCancello;
 import behav.AssertCellaVuota;
 import behav.AssertFantasma;
 import behav.AssertMuro;
@@ -59,7 +58,6 @@ public class DatabaseAgent extends Agent {
 		Object[] muro = new Object[1000];
 		Object[] puntino = new Object[1000];
 		Object[] vitamina = new Object[5];
-		Object[] cancello = new Object[3];
 		
 
 		int v = 0, m = 0, pu = 0, vi = 0, c = 0;
@@ -82,9 +80,6 @@ public class DatabaseAgent extends Agent {
 					}else if (maze1[row][col] == 3) {
 						vitamina[vi] = (col+",-"+row);
 						vi++;							
-					}else if (maze1[row][col] == 4) {
-						cancello[c] = (col+",-"+row);
-						c++;							
 					}
 				}
 			}
@@ -125,15 +120,6 @@ public class DatabaseAgent extends Agent {
 					));
 			}
 		
-		//Cancelli
-		if (cancello != null){
-			this.addBehaviour(new AssertCancello(
-					this,
-					"cancello",
-					cancello
-					));
-			}
-
 		//Vitamina
 		if (vitamina != null){
 			this.addBehaviour(new AssertVitamina(
