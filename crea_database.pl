@@ -15,8 +15,6 @@ esporta:-
 	esporta_vecchio_pacman,  %posizione iniziale pacman
 	esporta_fantasma, %posizioni iniziali fantasmi
 
-	esporta_cancello, %posizione cancello
-
 	esporta_vuota,  %celle vuote
 
 	esporta_muro,  %pareti
