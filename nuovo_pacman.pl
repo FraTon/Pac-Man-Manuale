@@ -1,21 +1,21 @@
-:- [predicati_pacman].
+:-[predicati_pacman].
 :-[predicati_utili].
 
 :-dynamic pacman/2.
 :-dynamic fantasma/3. %ultima posizione conosciuta del fantasma Colore
 :-dynamic scatter/3.
-:-dynamic obiettivo/4.  %(modalita,colore,X obietivo, Y obiettivo)
+:-dynamic obiettivo/4.  %(modalita,colore,X obiettivo, Y obiettivo)
 :-dynamic possibili/3.
 :-dynamic percorso/3.   %percorso(modalita,colore,Percorso)
-:-dynamic modalita/2.   %modalita(Colore,std/fuga/mangiato)
+:-dynamic modalita/2.   %modalita(Colore,std/fuga)
 :-dynamic vecchio_pacman/2.
 
 :-discontiguous mossa_fantasma/6.
 
 % ASSERISCI VECCHIO PACMAN
 %
-% Ritrae la vecchia posizione di pacman, e asserisce la nuova-vecchia
-% posizione di pacman.
+% Ritrae la vecchia posizione di Pac-Man, e asserisce la nuova-vecchia
+% posizione di Pac-Man.
 %
 asserisci_vecchio_pacman:-
        ritratta(vecchio_pacman),
@@ -53,14 +53,14 @@ non_mosso_pacman(PX,PY):-
 % nuova posizione (mossa successiva) in cui dovrà spostarsi per
 % raggiungere il suo obiettivo (NX,NY).
 %
-% Il fantasma rosso punta a pacman, pertanto se pacman non si è mosso
+% Il fantasma rosso punta a Pac-Man, pertanto se Pac-Man non si è mosso
 % rispetto all'ultima posizione conosciuta, il fantasma rosso eseguirà
 % la mossa successiva del percorso ottimo identificato in precedenza
 % senza perdere tempo a definirlo nuovamente.
 %
 mossa_fantasma(rosso,FX,FY,NX,NY,Dir):-
         pacman(PX,PY),
-        non_mosso_pacman(PX,PY),  %controlla se pacman si è mosso e fallisce in tal caso
+        non_mosso_pacman(PX,PY),  %controlla se Pac-Man si è mosso e fallisce in tal caso
         !,
 
         percorso(std,rosso,[[NX,NY]|RestoDelPercorsoRosso]),   %recupera l'ultimo percorso ottimo calcolato per il fantasma rosso e ne estrae la prima mossa (mossa che il fantasma deve eseguire)
@@ -105,7 +105,7 @@ mossa_fantasma(Colore,FX,FY,NX,NY,Dir):-
 % ad un incrocio.
 %
 mossa_fantasma(rosso,FX,FY,NX,NY,Dir):-
-	pacman(PX,PY),   % istanzia PX e PY con le attuali coordinate di pacman
+	pacman(PX,PY),   % istanzia PX e PY con le attuali coordinate di Pac-Man
 	modalita(rosso,Modalita),
 
         nuova_mossa(rosso,Modalita,FX,FY,PX,PY,NX,NY,Dir).  %calcola la nuova mossa del fantasma e la direzione nella quale muoversi
@@ -118,8 +118,8 @@ mossa_fantasma(rosso,FX,FY,NX,NY,Dir):-
 % nuova posizione (mossa successiva) in cui dovrà spostarsi per
 % raggiungere il suo obiettivo (NX,NY).
 
-% Se la distanza in linea d'aria tra il fantasma e pacman è:
-%    -superiore a 8, il fantasma ha come obiettivo pacman
+% Se la distanza in linea d'aria tra il fantasma e Pac-Man è:
+%    -superiore a 8, il fantasma ha come obiettivo Pac-Man
 %    -inferiore a 8, il fantasma ha come obiettivo il suo punto di
 %     scatter (angolo in alto a destra), se si trova già nel suo punto
 %     di scatter, deve continuare a girare nei pressi del suo angolo.
@@ -129,7 +129,7 @@ mossa_fantasma(rosso,FX,FY,NX,NY,Dir):-
 %
 mossa_fantasma(arancione,FX,FY,NX,NY,Dir):-
 	pacman(PX,PY),
-        distanza([FX,FY],[PX,PY],DistanzaPacman), %calcola la distanza in linea d'aria che c'è tra il fantasma e pacman
+        distanza([FX,FY],[PX,PY],DistanzaPacman), %calcola la distanza in linea d'aria che c'è tra il fantasma e Pac-Man
 	DistanzaPacman > 8,%controlla se la distanza calcolata è maggiore di 8
 	!,
 
@@ -208,13 +208,13 @@ mossa_fantasma(azzurro,FX,FY,_,_,_,_,NX,NY,Dir):-
 
 % incrocio
 mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
-	pacman(PX,PY),   % istanzia PX e PY con le attuali coordinate di pacman
+	pacman(PX,PY),   % istanzia PX e PY con le attuali coordinate di Pac-Man
 	modalita(azzurro,Modalita),
 	(
 		Modalita = 'std',
-		incrementa_posizione(PX,PY,DirezionePacMan,2,IX,IY)  % [IX,IY] è la cella e distanza 2 da pacman lungo la sua direzione
+		incrementa_posizione(PX,PY,DirezionePacMan,2,IX,IY)  % [IX,IY] è la cella e distanza 2 da Pac-Man lungo la sua direzione
                 ;
-		incrementa_posizione(PX,PY,DirezionePacMan,4,IX,IY)
+		incrementa_posizione(PX,PY,DirezioneFR,4,IX,IY)  % il fantasma è in fuga e quindi [IX,IY] è la cella e distanza 4 da Pac-Man lungo la direzione percorsa dal fantasma rosso
 
 	),
 
@@ -233,7 +233,7 @@ mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
 % raggiungere il suo obiettivo (NX,NY).
 %
 % L'obiettivo del fantasma rosa, dipende unicamnete dalla posizone di
-% pacman, pertanto se pacman non si è mosso rispetto all'ultima
+% Pac-Man, pertanto se Pac-Man non si è mosso rispetto all'ultima
 % posizione conosciuta e il fantasma non ancora raggiunto il suo
 % obiettivo, eseguirà la mossa successiva del percorso
 % ottimo identificato in precedenza senza perdere tempo a definirlo
@@ -249,7 +249,7 @@ mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
 	\+ OY is Y,
         !,
 
-	%rosa non ha ancora raggiunto il suo obiettivo e pacman non si è mosso, quindi prendo il percorso ottimo ed eseguo la mossa successiva
+	%rosa non ha ancora raggiunto il suo obiettivo e Pac-Man non si è mosso, quindi prendo il percorso ottimo ed eseguo la mossa successiva
 	percorso(std,rosa,[[NX,NY]|RestoDelPercorsoRosa]),
 	incrementa_posizione(X,Y,Dir,1,NX,NY), %conosce la posizione attuale e la successiva,lo spostamento è unitario->Direzione percorsa
 
@@ -290,7 +290,7 @@ mossa_fantasma(rosa,FX,FY,DirezionePacMan,NX,NY,Dir):-
         pacman(PX,PY),
         modalita(rosa,Modalita),
 
-	incrementa_posizione(PX,PY,DirezionePacMan,4,IX,IY),  % [IX,IY] è la cella e distanza 4 da pacman lungo la sua direzione
+	incrementa_posizione(PX,PY,DirezionePacMan,4,IX,IY),  % [IX,IY] è la cella e distanza 4 da Pac-Man lungo la sua direzione
 	obiettivo_ammissibile(IX,IY,OX,OY),  %verifica l'ammissibilità dell'obiettivo identificato
 
 	nuova_mossa(rosso,Modalita,FX,FY,OX,OY,NX,NY,Dir).
@@ -443,7 +443,7 @@ incrementa_posizione(X,Y,Dir,_,IX,IY):-
 %
 obiettivo_azzurro(FX,FY,DirezioneF1,Distanza,IX,IY):-
     Distanza2 is round(Distanza*2), %Calcolo il doppio della distanza
-    incrementa_posizione(FX,FY,DirezioneF1,Distanza2,IX,IY). %Incremento coordinate posizione medusa rossa del doppio della distanza
+    incrementa_posizione(FX,FY,DirezioneF1,Distanza2,IX,IY). %Incremento coordinate posizione fantasma rosso del doppio della distanza
 
 
 
@@ -492,21 +492,21 @@ raggiunto_scatter(FX,FY):-
 %
 ritratta(pacman):-
        (
-           \+pacman(_,_)   % se c'è già una posizione asserita per pacman-> fallisce,
+           \+pacman(_,_)   % se c'è già una posizione asserita per Pac-Man-> fallisce,
            ;
            retractall(pacman(_,_)) % e la ritratta
        ).
 ritratta(vecchio_pacman):-
        (
-           \+vecchio_pacman(_,_)   % se c'è già una vecchia posizione di pacman asserita-> fallisce,
+           \+vecchio_pacman(_,_)   % se c'è già una vecchia posizione di Pac-Man asserita-> fallisce,
            ;
            retractall(vecchio_pacman(_,_))  % e la ritratta
         ).
 ritratta(modalita,Colore):-
        (
-            \+ modalita(Colore,_)    % se per quel colore c'è già un obiettivo asserito-> fallisce,
+            \+ modalita(Colore,_)    % se per quel colore c'è già un modalità asserita-> fallisce,
             ;
-            retractall(modalita(Colore,_)) % e lo ritratta
+            retractall(modalita(Colore,_)) % e la ritratta
         ).
 ritratta(obiettivo,Colore):-
        (

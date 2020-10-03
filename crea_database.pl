@@ -12,7 +12,7 @@
 %
 esporta:-
         dinamicita,    %creazione database.pl e scrittura predicati dinamicità
-	esporta_vecchio_pacman,  %posizione iniziale pacman
+	esporta_vecchio_pacman,  %posizione iniziale Pac-Man
 	esporta_fantasma, %posizioni iniziali fantasmi
 
 	esporta_vuota,  %celle vuote
