@@ -1,3 +1,5 @@
+:-[predicati_utili].
+
 :-dynamic adiacente/2.
 
 
@@ -45,17 +47,6 @@ manhattan([X1,Y1],Distanza):-
 
 
 
-% VALORE ASSOLUTO
-%
-% Dato un valore X restituisce il suo valore assoluto AX.
-%
-valore_assoluto(X,AX):-
-	X<0,!,
-	AX is -(X).
-valore_assoluto(X,X).
-
-
-
 % BEST (A*)
 %
 % Algoritmo utilizzato per la definizione del percorso ottimo
@@ -94,7 +85,7 @@ espande(Percorso,l([X,Y],_/_),_,_,si,[[X,Y]|Percorso]) :-
     b_getval(colore,Colore),    %legge il colore del fantasma di cui deve trovare il percorso ottimo
     modalita(Colore,Modalita),    %legge la modalità di gioco attuale
     (
-       Colore is 'arancione',
+       Colore == 'arancione',
        obiettivo(Modalita-scatter,arancione,X,Y)
        ;
        obiettivo(Modalita,Colore,X,Y)
@@ -215,7 +206,7 @@ inserisci([X,Y],Percorso,Successori,Successori):-
 
 inserisci([X,Y],_,Successori,Successori):-
 	b_getval(colore,Colore),
-	Colore is 'arancione',
+	Colore == 'arancione',
 	modalita(arancione,Modalita),
 	obiettivo(Modalita-scatter,arancione,_,_),
 	fantasma(arancione,X,Y),   %non può tornare nella posizione precedente

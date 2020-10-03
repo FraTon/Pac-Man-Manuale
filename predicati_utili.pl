@@ -61,3 +61,64 @@ minimo_lista([T],T):-
 minimo_lista([T|C],MinAttuale):-
 	minimo_lista(C,Min),
 	MinAttuale is min(T,Min).
+
+
+
+% INVERTI LISTA
+%
+% Inverte la lista.
+%
+inverti([],[]).
+inverti([T|C],L):-
+    inverti(C,C2),
+    append(C2,[T],L).
+
+
+
+% CANCELLA TESTA
+%
+% Cancella il primo elemento della lista.
+%
+cancella_testa([_|C],C).
+cancella_testa([_],_).
+
+
+% VALORE ASSOLUTO
+%
+% Dato un valore X restituisce il suo valore assoluto AX.
+%
+valore_assoluto(X,AX):-
+	X<0,!,
+	AX is -(X).
+valore_assoluto(X,X).
+
+
+
+% DISTANZA
+%
+% Distanza euclidea tra tra [X1,Y1] e [X2,Y2].
+%
+distanza([X1,Y1],[X2,Y2],Distanza):-
+    Distanza is sqrt(((X1-X2)^2)+((Y1-Y2)^2)).
+
+
+
+% MOSSA
+%
+% Dato un percorso, lo inverte e ne restituisce la prima mossa da
+% effettuare (penultima mossa della lista originale).
+%
+mossa(Percorso,Mossa,RestoDelPercorso):-
+    inverti(Percorso,PercorsoInvertito),  %inverte il percorso
+    cancella_testa(PercorsoInvertito,[Mossa|RestoDelPercorso]). %cancella il primo elemento del percorso invertito
+
+
+
+% SCRIVI
+%
+% Stampa una lista.
+%
+scrivi([]) :- nl.
+scrivi([T|C]) :-
+	scrivi(C),
+	write(' '), write(T), nl.
