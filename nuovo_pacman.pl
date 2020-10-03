@@ -186,10 +186,10 @@ mossa_fantasma(arancione,FX,FY,NX,NY,Dir):-
 % Per calcolare il suo obiettivo, è necessario calcolare le coordinate
 % della cella a distanza 2 da Pac-Man lungo la direzione in cui si sta
 % muovendo, poi calcolare la distanza in linea d'aria tra la cella
-% appena definita [IX,IY] e la posizione del fantasma rosso [F1_X,F1_Y].%
-% L'obiettivo del fantasma azzurro si trova lungo la direzione del
-% fantsma rosso, a una distanza doppia (rispetto a quella calcolata)
-% dalla sua posizione.
+% appena definita [IX,IY] e la posizione del fantasma rosso
+% [FRX,FRY]. L'obiettivo del fantasma azzurro si trova lungo la
+% direzione del fantsma rosso, a una distanza doppia (rispetto a quella
+% calcolata) dalla sua posizione.
 %
 % Come cosa iniziale si verifica se si è in modalita standard e ci si
 % trova ad un incrocio, solo in quel caso si cerca una direzione da
@@ -201,25 +201,25 @@ mossa_fantasma(arancione,FX,FY,NX,NY,Dir):-
 %
 mossa_fantasma(azzurro,FX,FY,_,_,_,_,NX,NY,Dir):-
 	modalita(azzurro,Modalita),
-	Modalita = 'std',
+	Modalita == 'std',
 
 	direzioni_ammissibili(azzurro,FX,FY,NX,NY),   %se il numero di direzioni ammissibili è minore o uguale a 2, restituisce la mossa da effettuare
 	incrementa_posizione(FX,FY,Dir,1,NX,NY).  %conosce la posizione attuale e la successiva,lo spostamento è unitario-> Direzione percorsa
 
 % incrocio
-mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
+mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirFR,DirPacMan,NX,NY,Dir):-
 	pacman(PX,PY),   % istanzia PX e PY con le attuali coordinate di Pac-Man
 	modalita(azzurro,Modalita),
 	(
-		Modalita = 'std',
-		incrementa_posizione(PX,PY,DirezionePacMan,2,IX,IY)  % [IX,IY] è la cella e distanza 2 da Pac-Man lungo la sua direzione
+		Modalita == 'std',
+		incrementa_posizione(PX,PY,DirPacMan,2,IX,IY)  % [IX,IY] è la cella e distanza 2 da Pac-Man lungo la sua direzione
                 ;
-		incrementa_posizione(PX,PY,DirezioneFR,4,IX,IY)  % il fantasma è in fuga e quindi [IX,IY] è la cella e distanza 4 da Pac-Man lungo la direzione percorsa dal fantasma rosso
+		incrementa_posizione(PX,PY,DirFR,4,IX,IY)  % il fantasma è in fuga e quindi [IX,IY] è la cella e distanza 4 da Pac-Man lungo la direzione percorsa dal fantasma rosso
 
 	),
 
 	distanza([FRX,FRY],[IX,IY],Distanza),  %calcolo della Distanza tra [IX,IY] e l'attuale posizione del fantasma rosso [FRX,FRY]
-	obiettivo_azzurro(FRX,FRY,DirezioneFR,Distanza,X,Y),  %calcolo obiettivo del fantasma
+	obiettivo_azzurro(FRX,FRY,DirFR,Distanza,X,Y),  %calcolo obiettivo del fantasma
 	obiettivo_ammissibile(X,Y,OX,OY), %verifica l'ammissibilità dell'obiettivo calcolato e in base a questo determina il valore di OX,OY
 
 	nuova_mossa(azzurro,Modalita,FX,FY,OX,OY,NX,NY,Dir).
@@ -271,18 +271,15 @@ mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
 % L'obiettivo del fantasma rosa , si trova 4 celle più avanti rispetto
 % alla posizione di Pac-Man e lungo la sua direzione di movimento.
 %
-% Come cosa iniziale si verifica se si è in modalità standard e ci si
-% trova ad un incrocio, solo in quel caso si cerca una direzione da
-% seguire, in caso contrario infatti il fantasma non può cambiare
-% direzione ed è costretto a proseguire nello stesso verso.
+% Come cosa iniziale si verifica se si trova ad un incrocio, solo in
+% quel caso si cerca una direzione da seguire, in caso contrario infatti
+% il fantasma non può cambiare direzione ed è costretto a proseguire
+% nello stesso verso.
 %
 
 % no incrocio
 mossa_fantasma(rosa,FX,FY,_,NX,NY,Dir):-
-	modalita(rosa,Modalita),
-	Modalita = 'std',
-
-        direzioni_ammissibili(rosa,FX,FY,NX,NY),  %se il numero di direzioni ammissibili è minore o uguale a 2, restituisce la mossa da effettuare
+	direzioni_ammissibili(rosa,FX,FY,NX,NY),  %se il numero di direzioni ammissibili è minore o uguale a 2, restituisce la mossa da effettuare
         incrementa_posizione(FX,FY,Dir,1,NX,NY).   %conosce la posizione attuale e la successiva,lo spostamento è unitario->Direzione percorsa
 
 % incrocio
@@ -305,8 +302,8 @@ mossa_fantasma(rosa,FX,FY,DirezionePacMan,NX,NY,Dir):-
 % direzione deve seguire per raggiungerla.
 %
 % Ritratta il precedente obiettivo, l'ultimo percorso ottimo definito e
-% la preceddente posizione del fantasma. Asserisce il nuovo obiettivo e
-% l'attual posizione del fantasma, identifica il percorso ottimo lo
+% la precedente posizione del fantasma. Asserisce il nuovo obiettivo e
+% l'attuale posizione del fantasma, identifica il percorso ottimo lo
 % inverte, estrae la posizione in cui il fantasma dovrà spostarsi,
 % asserisce la restante parte del percorso ottimo.
 %

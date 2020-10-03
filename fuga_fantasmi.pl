@@ -36,9 +36,10 @@ set_iniziale_fuga:-
 % Data la posizione attuale del fantasma rosso, calcola le coordinate
 % della cella in cui spostarsi per fuggire da Pac-Man.
 %
-% Sfrutta l'idea che Pac-Man per cercare di fare più punti, aprofittando
-% del fatto che i fantasmi non possono mangiarlo, preferirà muoversi in
-% zone in cui ci sono ancora dei puntini a disposizione da mangiare.
+% Sfrutta l'idea che Pac-Man per cercare di fare più punti,
+% approfittando del fatto che i fantasmi non possono mangiarlo,
+% preferirà muoversi in zone in cui ci sono ancora dei puntini a
+% disposizione da mangiare.
 %
 % Pertanto il fantasma rosso si sposta verso la cella vuota a maggiore
 % distanza da Pac-Man.

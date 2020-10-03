@@ -9,7 +9,7 @@
 % l'obiettivo del fantasma con cui si stà lavorando.
 %
 % Per il calcolo considera anche la possibilità che per raggiungere
-% l'obietivo il fantasma transiti attraverso il tunnel lungo una o
+% l'obiettivo il fantasma transiti attraverso il tunnel lungo una o
 % l'altra direzione indifferentemente
 %
 manhattan([X1,Y1],Distanza):-
