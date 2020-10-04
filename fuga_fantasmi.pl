@@ -21,13 +21,9 @@
 set_iniziale_fuga:-
 	ritratta(pacman),
 
-	(\+obiettivo(fuga,_,_,_);
-	retractall(obiettivo(fuga,_,_,_))
-	),
-
-	(\+percorso(fuga,_,_);
-	retractall(percorso(fuga,_,_))
-	).
+	ritratta(obiettivo,_),
+	
+	ritratta(percorso,_).
 
 
 
@@ -90,7 +86,7 @@ fuga_rosa(RSX,RSY,ARX,ARY,NX,NY,Dir):-
 %     direzione, ma a distanza 4 (sempre da Pac-Man) ma lungo la
 %     direzione di movimento del fantasma rosso.
 %
-fuga_azzurro(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
+fuga_azzurro(FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
 	direzione_opposta(DirezioneFR,DirFR),  %direzione opposta rispetto a quella del fantasma rosso
 	mossa_fantasma(azzurro,FX,FY,FRX,FRY,DirFR,DirezionePacMan,NX,NY,Dir).
 
@@ -104,7 +100,7 @@ fuga_azzurro(azzurro,FX,FY,FRX,FRY,DirezioneFR,DirezionePacMan,NX,NY,Dir):-
 % Il fantasma arancione si comporta esattamente come nella modalità
 % std.
 %
-fuga_arancione(arancione,FX,FY,NX,NY,Dir):-
+fuga_arancione(FX,FY,NX,NY,Dir):-
 	mossa_fantasma(arancione,FX,FY,NX,NY,Dir).
 
 

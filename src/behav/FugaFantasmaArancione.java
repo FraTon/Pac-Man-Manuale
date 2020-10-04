@@ -24,25 +24,13 @@ public class FugaFantasmaArancione extends Behaviour {
 	}
 
 	public void action(){
-		
-		//goal: set_iniziale_fuga che permette di settare i parametri iniziali per la modalità fuga
-		String goal = "set_iniziale_fuga";
-		
-		Query q = new Query(goal); //creazione di una query per il lancio del goal
-		
-		//lancio del goal e se ha almeno una solzione
-		if (q.hasSolution()) {
 			
-			//System.out.println(goal); //stampa di debug
-			
-		}
-	
-		//goal: assert(pacman(x,y)),assert(modalita(arancione,fuga)),fuga_arancione(arancione,ARX,ARY,NARX,NARY,DirAR)
-		String goal2 = "assert(pacman("+fantasmaArancione.pacman.col+",-"+fantasmaArancione.pacman.row+")),assert(modalita("+fantasmaArancione.color+",fuga)),fuga_arancione("+fantasmaArancione.color+","+fantasmaArancione.col+",-"+fantasmaArancione.row+",NX,NY,Dir)";	
+		//goal: assert(pacman(x,y)),assert(modalita(arancione,fuga)),fuga_arancione(ARX,ARY,NARX,NARY,DirAR)
+		String goal = "assert(pacman("+fantasmaArancione.pacman.col+",-"+fantasmaArancione.pacman.row+")),assert(modalita("+fantasmaArancione.color+",fuga)),fuga_arancione("+fantasmaArancione.col+",-"+fantasmaArancione.row+",NX,NY,Dir)";	
 				
-		//System.out.println("Fuga goal sarebbe: "+ goal2); //stampa di debug
+		//System.out.println("Fuga goal sarebbe: "+ goal); //stampa di debug
 			
-		q = new Query(goal2); //creazione di una query per il lancio del goal
+		Query q = new Query(goal); //creazione di una query per il lancio del goal
 		
 		//lancio del goal e se ha almeno una solzione
 		if (q.hasSolution()) {

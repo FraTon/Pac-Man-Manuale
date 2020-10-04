@@ -50,7 +50,7 @@ massimo_lista([T|C],MaxAttuale):-
 	MaxAttuale is max(T,Max).
 
 
-
+/*
 % MINIMO LISTA
 %
 % Individua il minimo valore contenuto in una lista.
@@ -61,7 +61,7 @@ minimo_lista([T],T):-
 minimo_lista([T|C],MinAttuale):-
 	minimo_lista(C,Min),
 	MinAttuale is min(T,Min).
-
+*/
 
 
 % INVERTI LISTA

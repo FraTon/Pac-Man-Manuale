@@ -24,24 +24,12 @@ public class FugaFantasmaRosso extends Behaviour {
 
 	public void action(){
 		
-		//goal: set_iniziale_fuga che permette di settare i parametri iniziali per la modalità fuga
-		String goal = "set_iniziale_fuga";
-		
-		Query q = new Query(goal); //creazione di una query per il lancio del goal 
-		
-		//lancio del goal e se ha almeno una solzione
-		if (q.hasSolution()) {
-			
-			//System.out.println(goal); //stampa di debug
-			
-		}
-		
 		//goal: assert(pacman(x,y)),assert(modalita(rosso,fuga)),fuga_rosso(RX,RY,NRX,NRY,DirR)
-		String goal2 = "assert(pacman("+fantasmaRosso.pacman.col+",-"+fantasmaRosso.pacman.row+")),assert(modalita("+fantasmaRosso.color+",fuga)),fuga_rosso("+fantasmaRosso.col+",-"+fantasmaRosso.row+",NX,NY,Dir)";
+		String goal = "assert(pacman("+fantasmaRosso.pacman.col+",-"+fantasmaRosso.pacman.row+")),assert(modalita("+fantasmaRosso.color+",fuga)),fuga_rosso("+fantasmaRosso.col+",-"+fantasmaRosso.row+",NX,NY,Dir)";
 		
-		//System.out.println("Fuga goal sarebbe: "+ goal2); //stampa di debug
+		//System.out.println("Fuga goal sarebbe: "+ goal); //stampa di debug
 			
-		q = new Query(goal2); //creazione di una query per il lancio del goal
+		Query q = new Query(goal); //creazione di una query per il lancio del goal
 		
 		//lancio del goal e se ha almeno una solzione
 		if (q.hasSolution()) {
