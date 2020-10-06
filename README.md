@@ -1,4 +1,4 @@
-# PacMan-Prolog
+# Pac-Man Manuale
 Pacman Manuale implementato attraverso Prolog e JADE
 
 # Configurazione
