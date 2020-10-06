@@ -1,5 +1,5 @@
 # Pac-Man Manuale
-Pacman Manuale implementato attraverso Prolog e JADE
+Pacman Manuale implementato attraverso Prolog e JADE.
 
 # Configurazione
 Per poter utilizzare SWI-Prolog e JADE in Eclipse, è stato necessario importare le loro librerie all'interno del progetto.
